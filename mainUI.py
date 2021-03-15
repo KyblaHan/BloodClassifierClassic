@@ -23,13 +23,16 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.btn_load_data.clicked.connect(self.btn_load_data_clicked)
         self.ui.btn_fit.clicked.connect(self.btn_fit_clicked)
 
-        for m in classifier.methods:
-            self.ui.classifier_type.addItem(m)
+        self.ui.btn_fit.setDisabled(True)
+
+        for m in classifier.classifiers:
+            self.ui.classifier_type.addItem(str(m))
 
     def btn_fit_clicked(self):
-        if self.ui.classifier_type.currentText() == "LogisticRegression":
-            expected,predicted = classifier.logistic_regression(self.X, self.y)
-
+        # if self.ui.classifier_type.currentText() == "LogisticRegression":
+            # expected,predicted = classifier.logistic_regression(self.X, self.y)
+        print(self.ui.classifier_type.currentIndex())
+        expected, predicted = classifier.control_classifiers(self.X,self.y, self.ui.classifier_type.currentIndex())
         self.ui.label_4.setText(metrics.classification_report(expected, predicted))
         self.load_train_predictions_matrix_table(metrics.confusion_matrix(expected, predicted))
 
@@ -49,6 +52,7 @@ class mywindow(QtWidgets.QMainWindow):
             preprocess_type = 1
             status_text = "нормализованны"
 
+        self.ui.btn_fit.setDisabled(False)
 
         self.X, self.y = classifier.load_and_preprocess_data(self.ui.path_to_data.text(), preprocess_type)
         self.y_unic = list(set(self.y))

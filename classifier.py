@@ -9,6 +9,12 @@ from sklearn.neighbors import KNeighborsClassifier
 from collections import Counter
 
 methods = ["LogisticRegression"]
+classifiers = [
+    LogisticRegression(max_iter=10000),
+    KNeighborsClassifier(),
+]
+
+
 # preprocess_method - способ подготовки данных. 1 - нормализация; 2 - стандартизация; по умолчанию - нормализация
 def load_and_preprocess_data(path_to_data, preprocess_method=1):
     data = pd.read_csv(path_to_data, sep=';', thousands=",", low_memory=False)
@@ -28,6 +34,7 @@ def load_and_preprocess_data(path_to_data, preprocess_method=1):
 
     return (X, y)
 
+
 def get_load_file_stats(y):
     stats = Counter(y)
     # print(len(stats))
@@ -38,6 +45,7 @@ def get_load_file_stats(y):
         stats_list.append((stats.loc[i][0], str(stats.loc[i][1])))
 
     return stats_list
+
 
 def logistic_regression(X, y):
     model = LogisticRegression(max_iter=10000)
@@ -50,4 +58,12 @@ def logistic_regression(X, y):
 
     print(metrics.classification_report(expected, predicted))
     print(metrics.confusion_matrix(expected, predicted))
-    return (expected,predicted)
+    return (expected, predicted)
+
+
+def control_classifiers(X, y, num_classifier):
+    model = classifiers[num_classifier]
+    model.fit(X, y)
+    expected = y
+    predicted = model.predict(X)
+    return (expected, predicted)
