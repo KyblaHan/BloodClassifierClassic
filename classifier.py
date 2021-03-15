@@ -12,6 +12,8 @@ methods = ["LogisticRegression"]
 classifiers = [
     LogisticRegression(max_iter=10000),
     KNeighborsClassifier(),
+    ExtraTreesClassifier(),
+    GaussianNB()
 ]
 
 

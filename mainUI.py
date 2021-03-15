@@ -31,7 +31,7 @@ class mywindow(QtWidgets.QMainWindow):
     def btn_fit_clicked(self):
         # if self.ui.classifier_type.currentText() == "LogisticRegression":
             # expected,predicted = classifier.logistic_regression(self.X, self.y)
-        print(self.ui.classifier_type.currentIndex())
+        # print(self.ui.classifier_type.currentIndex())
         expected, predicted = classifier.control_classifiers(self.X,self.y, self.ui.classifier_type.currentIndex())
         self.ui.label_4.setText(metrics.classification_report(expected, predicted))
         self.load_train_predictions_matrix_table(metrics.confusion_matrix(expected, predicted))
@@ -55,8 +55,8 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.btn_fit.setDisabled(False)
 
         self.X, self.y = classifier.load_and_preprocess_data(self.ui.path_to_data.text(), preprocess_type)
-        self.y_unic = list(set(self.y))
-        print(self.y_unic)
+        # self.y_unic = list(set(self.y))
+        # print(self.y_unic)
 
         self.load_info_table(classifier.get_load_file_stats(self.y))
         self.ui.status.setText("Статус загрузки данных: данные загружены и " + status_text)
@@ -66,13 +66,14 @@ class mywindow(QtWidgets.QMainWindow):
     def load_train_predictions_matrix_table(self,data):
         self.ui.train_predictions_matrix.setColumnCount(len(self.y_unic))
         self.ui.train_predictions_matrix.setRowCount(len(self.y_unic))
+        print(self.y_unic)
         # заголовки для столбцов.
         self.ui.train_predictions_matrix.setHorizontalHeaderLabels(
-            set(self.y_unic)
+            self.y_unic
         )
         # заголовки для строк.
         self.ui.train_predictions_matrix.setVerticalHeaderLabels(
-            set(self.y_unic)
+            self.y_unic
         )
         row = 0
         for tup in data:
@@ -89,6 +90,7 @@ class mywindow(QtWidgets.QMainWindow):
 
 
     def load_info_table(self,data):
+        self.y_unic.clear()
         self.ui.table_file_info.setColumnCount(2)
         self.ui.table_file_info.setRowCount(len(data))
         # заголовки для столбцов.
@@ -105,8 +107,11 @@ class mywindow(QtWidgets.QMainWindow):
                     PyQt5.QtCore.Qt.ItemIsSelectable | PyQt5.QtCore.Qt.ItemIsEnabled
                 )
                 self.ui.table_file_info.setItem(row, col, cellinfo)
+                if col ==0:
+                    self.y_unic.append(item)
                 col += 1
             row += 1
+        # print(self.y_unic)
 
 app = QtWidgets.QApplication([])
 application = mywindow()
