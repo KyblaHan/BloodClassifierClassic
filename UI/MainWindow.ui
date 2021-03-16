@@ -23,6 +23,12 @@
       <height>1011</height>
      </rect>
     </property>
+    <property name="tabPosition">
+     <enum>QTabWidget::North</enum>
+    </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
@@ -35,7 +41,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>771</width>
+        <width>1291</width>
         <height>81</height>
        </rect>
       </property>
@@ -92,7 +98,7 @@
        <rect>
         <x>10</x>
         <y>100</y>
-        <width>435</width>
+        <width>1291</width>
         <height>31</height>
        </rect>
       </property>
@@ -138,7 +144,7 @@
        <rect>
         <x>10</x>
         <y>140</y>
-        <width>761</width>
+        <width>1291</width>
         <height>16</height>
        </rect>
       </property>
@@ -201,6 +207,187 @@
      <attribute name="title">
       <string>Подготовка данных (деление на тестовую и обучающие выборки)</string>
      </attribute>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>1291</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Подготовщик данных работает с исходными данными в формате .BMP, которые рассортированы по пакам, название которых соответствует классу объекта. Для выделения признаков необходимо пользоваться программой 4Show.</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="gridLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>1281</width>
+        <height>109</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Папка для сохранения данных в формате BMP (четыре подпапки: test,train,test_1class,train_1class):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QSpinBox" name="spinBox">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="value">
+          <number>20</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="btn_choose_output_bmp_data_path">
+         <property name="text">
+          <string>Выбрать путь</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Процент тестовой выборки:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Папка для сохранения данных в формате PNG (четыре подпапки: test,train,test_1class,train_1class):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="output_bmp_data_path"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Путь к исходному набору данных:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="btn_choose_input_data_path">
+         <property name="text">
+          <string>Выбрать путь</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="input_data_path"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="output_png_data_path"/>
+       </item>
+       <item row="2" column="2">
+        <widget class="QPushButton" name="btn_choose_output_png_data_path">
+         <property name="text">
+          <string>Выбрать путь</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>220</y>
+        <width>1281</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+     <widget class="QWidget" name="gridLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>260</y>
+        <width>1281</width>
+        <height>651</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Данные в тестовом наборе</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Данные в тренировочном наборе</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Данные в исходном наборе</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QTableWidget" name="table_input_info"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QTableWidget" name="table_test_info"/>
+       </item>
+       <item row="1" column="2">
+        <widget class="QTableWidget" name="table_train_info"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="horizontalLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>170</y>
+        <width>1281</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>Осуществлять конвертацию в PNG</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_start_devider">
+         <property name="text">
+          <string>Запуск разделения данных</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>Очистить форму</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
   </widget>
