@@ -7,8 +7,11 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from collections import Counter
+from joblib import dump, load
+import datetime
 
 
+# Перечень доступных моделей в Системе
 classifiers = [
     LogisticRegression(max_iter=10000),
     KNeighborsClassifier(),
@@ -16,6 +19,15 @@ classifiers = [
     GaussianNB()
 ]
 
+# генератор имен файлов
+def generate_save_name(classifier):
+
+    classifier = str(classifier)
+    name = "Weights/"
+    file_format = ".joblib"
+    now = datetime.datetime.now()
+    name = name + classifier + " " + str(now.strftime("%d-%m-%Y %H:%M")) + file_format
+    return name
 
 # preprocess_method - способ подготовки данных. 1 - нормализация; 2 - стандартизация; по умолчанию - нормализация
 def load_and_preprocess_data(path_to_data, preprocess_method=1):
@@ -36,7 +48,7 @@ def load_and_preprocess_data(path_to_data, preprocess_method=1):
 
     return (X, y)
 
-
+# функция считывания количества данных по каждому классу в файле
 def get_load_file_stats(y):
     stats = Counter(y)
     # print(len(stats))
@@ -49,23 +61,15 @@ def get_load_file_stats(y):
     return stats_list
 
 
-def logistic_regression(X, y):
-    model = LogisticRegression(max_iter=10000)
-    model.fit(X, y)
-    print(model)
-    # make predictions
-    expected = y
-    predicted = model.predict(X)
-    # summarize the fit of the model
-
-    print(metrics.classification_report(expected, predicted))
-    print(metrics.confusion_matrix(expected, predicted))
-    return (expected, predicted)
-
-
+# функция обучения классификаторов
 def control_classifiers(X, y, num_classifier):
     model = classifiers[num_classifier]
     model.fit(X, y)
     expected = y
     predicted = model.predict(X)
+
+    file_name = generate_save_name(classifiers[num_classifier])
+    dump(model, file_name)
+    # load('filename.joblib')
+
     return (expected, predicted)

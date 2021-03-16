@@ -49,7 +49,7 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_2)
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.tab)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 100, 326, 31))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 100, 435, 31))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -107,7 +107,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

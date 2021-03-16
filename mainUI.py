@@ -23,7 +23,9 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.btn_load_data.clicked.connect(self.btn_load_data_clicked)
         self.ui.btn_fit.clicked.connect(self.btn_fit_clicked)
 
+
         self.ui.btn_fit.setDisabled(True)
+
 
         for m in classifier.classifiers:
             self.ui.classifier_type.addItem(str(m))
@@ -35,8 +37,6 @@ class mywindow(QtWidgets.QMainWindow):
         expected, predicted = classifier.control_classifiers(self.X,self.y, self.ui.classifier_type.currentIndex())
         self.ui.label_4.setText(metrics.classification_report(expected, predicted))
         self.load_train_predictions_matrix_table(metrics.confusion_matrix(expected, predicted))
-
-
 
     def btn_select_input_data_clicked(self):
         file_path = QFileDialog.getOpenFileName(self, "Выберите файл",filter="*.csv")
@@ -65,7 +65,6 @@ class mywindow(QtWidgets.QMainWindow):
     def load_train_predictions_matrix_table(self,data):
         self.ui.train_predictions_matrix.setColumnCount(len(self.y_unic))
         self.ui.train_predictions_matrix.setRowCount(len(self.y_unic))
-        print(self.y_unic)
         # заголовки для столбцов.
         self.ui.train_predictions_matrix.setHorizontalHeaderLabels(
             self.y_unic
@@ -86,7 +85,6 @@ class mywindow(QtWidgets.QMainWindow):
                 self.ui.train_predictions_matrix.setItem(row, col, cellinfo)
                 col += 1
             row += 1
-
 
     def load_info_table(self,data):
         self.y_unic.clear()
