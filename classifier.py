@@ -8,7 +8,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from collections import Counter
 
-methods = ["LogisticRegression"]
+
 classifiers = [
     LogisticRegression(max_iter=10000),
     KNeighborsClassifier(),

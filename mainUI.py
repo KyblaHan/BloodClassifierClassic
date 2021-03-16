@@ -62,7 +62,6 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.status.setText("Статус загрузки данных: данные загружены и " + status_text)
 
 
-
     def load_train_predictions_matrix_table(self,data):
         self.ui.train_predictions_matrix.setColumnCount(len(self.y_unic))
         self.ui.train_predictions_matrix.setRowCount(len(self.y_unic))
