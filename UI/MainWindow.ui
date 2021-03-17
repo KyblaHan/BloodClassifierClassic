@@ -233,7 +233,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>Папка для сохранения данных в формате BMP (четыре подпапки: test,train,test_1class,train_1class):</string>
+          <string>Папка для сохранения данных в формате BMP:</string>
          </property>
         </widget>
        </item>
@@ -264,12 +264,16 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_12">
          <property name="text">
-          <string>Папка для сохранения данных в формате PNG (четыре подпапки: test,train,test_1class,train_1class):</string>
+          <string>Папка для сохранения данных в формате PNG:</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="output_bmp_data_path"/>
+        <widget class="QLineEdit" name="output_bmp_data_path">
+         <property name="text">
+          <string>C:\_Programming\_DataSets\Multiclass\bmp_devided_data</string>
+         </property>
+        </widget>
        </item>
        <item row="0" column="0">
         <widget class="QLabel" name="label_6">
@@ -286,10 +290,18 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="input_data_path"/>
+        <widget class="QLineEdit" name="input_data_path">
+         <property name="text">
+          <string>C:\_Programming\_DataSets\Multiclass\IshodData</string>
+         </property>
+        </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="output_png_data_path"/>
+        <widget class="QLineEdit" name="output_png_data_path">
+         <property name="text">
+          <string>C:\_Programming\_DataSets\Multiclass\png_devided_data</string>
+         </property>
+        </widget>
        </item>
        <item row="2" column="2">
         <widget class="QPushButton" name="btn_choose_output_png_data_path">
@@ -366,9 +378,12 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="checkBox_convert_png">
          <property name="text">
           <string>Осуществлять конвертацию в PNG</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
