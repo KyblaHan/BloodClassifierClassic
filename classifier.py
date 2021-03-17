@@ -9,7 +9,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from collections import Counter
 from joblib import dump, load
 import datetime
-
+import sklearn.utils._weight_vector
 
 # Перечень доступных моделей в Системе
 classifiers = [
