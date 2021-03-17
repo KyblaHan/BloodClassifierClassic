@@ -6,21 +6,39 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1342</width>
-    <height>1068</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1920</width>
+    <height>1080</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1920</width>
+    <height>1080</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Классификатор</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>1321</width>
-      <height>1011</height>
+      <width>1901</width>
+      <height>1021</height>
      </rect>
     </property>
     <property name="tabPosition">
@@ -34,15 +52,15 @@
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Обучение моделей</string>
+      <string>Обучение моделей (классика)</string>
      </attribute>
      <widget class="QWidget" name="formLayoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>1291</width>
-        <height>81</height>
+        <width>1871</width>
+        <height>103</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout">
@@ -70,6 +88,13 @@
        <item row="1" column="1">
         <widget class="QComboBox" name="classifier_type"/>
        </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Способ предобработки данных:</string>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="1">
         <widget class="QComboBox" name="preprocess_type">
          <item>
@@ -84,13 +109,6 @@
          </item>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Способ предобработки данных:</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="horizontalLayoutWidget">
@@ -98,7 +116,7 @@
        <rect>
         <x>10</x>
         <y>100</y>
-        <width>1291</width>
+        <width>1871</width>
         <height>31</height>
        </rect>
       </property>
@@ -144,7 +162,7 @@
        <rect>
         <x>10</x>
         <y>140</y>
-        <width>1291</width>
+        <width>1871</width>
         <height>16</height>
        </rect>
       </property>
@@ -167,8 +185,8 @@
        <rect>
         <x>10</x>
         <y>560</y>
-        <width>1291</width>
-        <height>411</height>
+        <width>1861</width>
+        <height>421</height>
        </rect>
       </property>
      </widget>
@@ -200,8 +218,90 @@
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Работа с обученными моделями</string>
+      <string>Работа с обученными моделями (классика)</string>
      </attribute>
+     <widget class="QWidget" name="gridLayoutWidget_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>1871</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="1" column="1">
+        <widget class="QComboBox" name="comboBox"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>Выберите модель для загрузки:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit_4"/>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="pushButton_12">
+         <property name="text">
+          <string>Открыть в проводнике</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="pushButton_11">
+         <property name="text">
+          <string>Выбрать файл</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_17">
+         <property name="text">
+          <string>Путь к файлу с данными:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_19">
+         <property name="text">
+          <string>Способ предобработки изображений(автовыбор при выборе модели):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="comboBox_2"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="horizontalLayoutWidget_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>1871</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QPushButton" name="pushButton_14">
+         <property name="text">
+          <string>Загрузить данные в Систему</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_13">
+         <property name="text">
+          <string>Тест</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -225,7 +325,7 @@
        <rect>
         <x>10</x>
         <y>40</y>
-        <width>1281</width>
+        <width>1871</width>
         <height>109</height>
        </rect>
       </property>
@@ -234,6 +334,41 @@
         <widget class="QLabel" name="label_7">
          <property name="text">
           <string>Папка для сохранения данных в формате BMP:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Путь к исходному набору данных:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="output_png_data_path">
+         <property name="text">
+          <string>C:\_Programming\_DataSets\Multiclass\png_devided_data</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="input_data_path">
+         <property name="text">
+          <string>C:\_Programming\_DataSets\Multiclass\IshodData</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="btn_choose_output_bmp_data_path">
+         <property name="text">
+          <string>Выбрать путь</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="btn_choose_input_data_path">
+         <property name="text">
+          <string>Выбрать путь</string>
          </property>
         </widget>
        </item>
@@ -247,24 +382,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="2">
-        <widget class="QPushButton" name="btn_choose_output_bmp_data_path">
-         <property name="text">
-          <string>Выбрать путь</string>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_8">
          <property name="text">
           <string>Процент тестовой выборки:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_12">
-         <property name="text">
-          <string>Папка для сохранения данных в формате PNG:</string>
          </property>
         </widget>
        </item>
@@ -275,38 +396,48 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Путь к исходному набору данных:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="btn_choose_input_data_path">
-         <property name="text">
-          <string>Выбрать путь</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="input_data_path">
-         <property name="text">
-          <string>C:\_Programming\_DataSets\Multiclass\IshodData</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="output_png_data_path">
-         <property name="text">
-          <string>C:\_Programming\_DataSets\Multiclass\png_devided_data</string>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="2">
         <widget class="QPushButton" name="btn_choose_output_png_data_path">
          <property name="text">
           <string>Выбрать путь</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Папка для сохранения данных в формате PNG:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="btn_open_input_data_path">
+         <property name="text">
+          <string>Открыть в проводнике</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QPushButton" name="btn_open_output_bmp_data_path">
+         <property name="text">
+          <string>Открыть в проводнике</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QPushButton" name="btn_open_output_png_data_path">
+         <property name="text">
+          <string>Открыть в проводнике</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QCheckBox" name="checkBox_convert_png">
+         <property name="text">
+          <string>Осуществлять конвертацию в PNG </string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -317,7 +448,7 @@
        <rect>
         <x>10</x>
         <y>220</y>
-        <width>1281</width>
+        <width>1871</width>
         <height>23</height>
        </rect>
       </property>
@@ -330,8 +461,8 @@
        <rect>
         <x>10</x>
         <y>260</y>
-        <width>1281</width>
-        <height>651</height>
+        <width>1871</width>
+        <height>721</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -342,12 +473,14 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_11">
-         <property name="text">
-          <string>Данные в тренировочном наборе</string>
-         </property>
-        </widget>
+       <item row="1" column="1">
+        <widget class="QTableWidget" name="table_test_info"/>
+       </item>
+       <item row="1" column="2">
+        <widget class="QTableWidget" name="table_train_info"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QTableWidget" name="table_input_info"/>
        </item>
        <item row="0" column="0">
         <widget class="QLabel" name="label_9">
@@ -356,14 +489,12 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QTableWidget" name="table_input_info"/>
-       </item>
-       <item row="1" column="1">
-        <widget class="QTableWidget" name="table_test_info"/>
-       </item>
-       <item row="1" column="2">
-        <widget class="QTableWidget" name="table_train_info"/>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Данные в тренировочном наборе</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -372,21 +503,11 @@
        <rect>
         <x>10</x>
         <y>170</y>
-        <width>1281</width>
+        <width>1871</width>
         <height>31</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QCheckBox" name="checkBox_convert_png">
-         <property name="text">
-          <string>Осуществлять конвертацию в PNG</string>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QPushButton" name="btn_start_devider">
          <property name="text">
@@ -396,8 +517,164 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_2">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="text">
           <string>Очистить форму</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_4">
+     <attribute name="title">
+      <string>Нейросеть</string>
+     </attribute>
+     <widget class="QWidget" name="gridLayoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>1871</width>
+        <height>109</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0,0,0">
+       <item row="1" column="2">
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="text">
+          <string>Выбрать путь</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>Путь к тестовому датасету:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Выбрать путь</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="lineEdit_2">
+         <property name="text">
+          <string>C:\_Programming\_DataSets\Multiclass\png_devided_data</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="text">
+          <string>C:\_Programming\_DataSets\Multiclass\png_devided_data</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="text">
+          <string>Открыть в проводнике</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="text">
+          <string>Открыть в проводнике</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QSpinBox" name="spinBox_2">
+         <property name="suffix">
+          <string/>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+         <property name="value">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_15">
+         <property name="text">
+          <string>Количество эпох:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>Путь к обучающему датасету:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_16">
+         <property name="text">
+          <string>Веса:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QPushButton" name="pushButton_10">
+         <property name="text">
+          <string>Открыть в проводнике</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>Использование ГПУ</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="comboBox_3"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="horizontalLayoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>1731</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPushButton" name="pushButton_7">
+         <property name="text">
+          <string>Запустить обучение</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_8">
+         <property name="text">
+          <string>Протестировать</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_9">
+         <property name="text">
+          <string>Дообучить модель</string>
          </property>
         </widget>
        </item>
@@ -411,7 +688,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1342</width>
+     <width>1920</width>
      <height>21</height>
     </rect>
    </property>

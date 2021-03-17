@@ -143,12 +143,7 @@ class mywindow(QtWidgets.QMainWindow):
                               self.ui.output_png_data_path.text(), self.ui.checkBox_convert_png.isChecked(),
                               int(self.ui.spinBox.value()),self.ui.progressBar
                               )
-        # self.load_table_input_info(
-        #     data_prep.get_folder_stats(self.ui.input_data_path.text()))
-        # self.load_table_test_info(
-        #     data_prep.get_folder_stats(self.ui.output_bmp_data_path.text() + "\\" + data_prep.TEST_FOLDER))
-        # self.load_table_train_info(
-        #     data_prep.get_folder_stats(self.ui.output_bmp_data_path.text() + "\\" + data_prep.TRAIN_FOLDER))
+
         self.load_table(self.ui.table_input_info,
                         data_prep.get_folder_stats(self.ui.input_data_path.text()))
         self.load_table(self.ui.table_test_info,
