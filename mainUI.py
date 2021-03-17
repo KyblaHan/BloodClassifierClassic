@@ -9,6 +9,8 @@ import sys
 import classifier
 import data_prep
 from sklearn import metrics
+import os
+
 
 
 # pyuic5 UI/MainWindow.ui -o UI/MainWindow.py
@@ -24,32 +26,39 @@ class mywindow(QtWidgets.QMainWindow):
         super(mywindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        # ===1
+        self.ui.tabWidget.setCurrentIndex(0)
+        # ===1==================
         self.ui.btn_select_input_data.clicked.connect(self.btn_select_input_data_clicked)
         self.ui.btn_load_data.clicked.connect(self.btn_load_data_clicked)
         self.ui.btn_fit.clicked.connect(self.btn_fit_clicked)
+        self.ui.btn_open_path_to_data.clicked.connect(self.btn_open_path_to_data_clicked)
         self.ui.btn_fit.setDisabled(True)
         for m in classifier.classifiers:
             self.ui.classifier_type.addItem(str(m))
-        # ===2
-        # ===3
+        # ===2============================
+        # ===3================================
         self.ui.btn_choose_input_data_path.clicked.connect(self.btn_choose_input_data_path_clicked)
         self.ui.btn_choose_output_bmp_data_path.clicked.connect(self.btn_choose_output_bmp_data_path_clicked)
         self.ui.btn_choose_output_png_data_path.clicked.connect(self.btn_choose_output_png_data_path_clicked)
         self.ui.btn_start_devider.clicked.connect(self.btn_start_devider_clicked)
+        self.ui.btn_open_input_data_path.clicked.connect(self.btn_open_input_data_path_clicked)
+        self.ui.btn_open_output_bmp_data_path.clicked.connect(self.btn_open_output_bmp_data_path_clicked)
+        self.ui.btn_open_output_png_data_path.clicked.connect(self.btn_open_output_png_data_path_clicked)
 
-    # ====Управление первой вкладкой
+    # ====Управление первой вкладкой====================================================
+    def btn_open_path_to_data_clicked(self):
+        path = self.ui.path_to_data.text()
+        path = '\\'.join(path.split('\\')[:-1])
+        path = os.path.realpath(path)
+        os.startfile(path)
+
     def btn_fit_clicked(self):
-        # if self.ui.classifier_type.currentText() == "LogisticRegression":
-        # expected,predicted = classifier.logistic_regression(self.X, self.y)
-        # print(self.ui.classifier_type.currentIndex())
-        expected, predicted = classifier.control_classifiers(self.X, self.y, self.ui.classifier_type.currentIndex())
+        expected, predicted = classifier.control_classifiers(self.X, self.y, self.ui.classifier_type.currentIndex(), self.ui.preprocess_type.currentText())
         self.ui.label_4.setText(metrics.classification_report(expected, predicted))
         self.load_train_predictions_matrix_table(metrics.confusion_matrix(expected, predicted))
 
     def btn_select_input_data_clicked(self):
         file_path = QFileDialog.getOpenFileName(self, "Выберите файл", filter="*.csv")
-        # print(file_path)
         self.ui.path_to_data.setText(file_path[0])
 
     def btn_load_data_clicked(self):
@@ -64,8 +73,6 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.btn_fit.setDisabled(False)
 
         self.X, self.y = classifier.load_and_preprocess_data(self.ui.path_to_data.text(), preprocess_type)
-        # self.y_unic = list(set(self.y))
-        # print(self.y_unic)
 
         self.load_info_table(classifier.get_load_file_stats(self.y))
         self.ui.status.setText("Статус загрузки данных: данные загружены и " + status_text)
@@ -116,26 +123,36 @@ class mywindow(QtWidgets.QMainWindow):
                     self.y_unic.append(item)
                 col += 1
             row += 1
-        # print(self.y_unic)
 
-    # ====Управление второй вкладкой
+    # ====Управление второй вкладкой=================================================
 
-    # ====Управление третьей вкладкой
+    # ====Управление третьей вкладкой===================================================
+    def btn_open_input_data_path_clicked(self):
+        path = self.ui.input_data_path.text()
+        path = os.path.realpath(path)
+        os.startfile(path)
+
+    def btn_open_output_bmp_data_path_clicked(self):
+        path = self.ui.output_bmp_data_path.text()
+        path = os.path.realpath(path)
+        os.startfile(path)
+
+    def btn_open_output_png_data_path_clicked(self):
+        path = self.ui.output_png_data_path.text()
+        path = os.path.realpath(path)
+        os.startfile(path)
+
     def btn_choose_input_data_path_clicked(self):
         file_path = QFileDialog.getExistingDirectory(self, "Выберите папку с изображениями в формате BMP")
-        # print(file_path)
         self.ui.input_data_path.setText(file_path)
-        # self.load_table_input_info(data_prep.get_folder_stats(file_path))
         self.load_table(self.ui.table_input_info, data_prep.get_folder_stats(self.ui.input_data_path.text()))
 
     def btn_choose_output_bmp_data_path_clicked(self):
         file_path = QFileDialog.getExistingDirectory(self, "Выберите папку для сохранения данных в формате BMP")
-        # print(file_path)
         self.ui.output_bmp_data_path.setText(file_path)
 
     def btn_choose_output_png_data_path_clicked(self):
         file_path = QFileDialog.getExistingDirectory(self, "Выберите папку для сохранения данных в формате PNG")
-        # print(file_path)
         self.ui.output_png_data_path.setText(file_path)
 
     def btn_start_devider_clicked(self):

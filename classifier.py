@@ -20,17 +20,17 @@ classifiers = [
 ]
 
 # генератор имен файлов
-def generate_save_name(classifier):
+def generate_save_name(classifier,preprocess_method):
 
     classifier = str(classifier)
-    name = "Weights/"
+    name = "Weights/Classic/"
     file_format = ".joblib"
     now = datetime.datetime.now()
-    name = name + classifier + " " + str(now.strftime("%d-%m-%Y %H:%M")) + file_format
+    name = name + classifier + "_" + str(preprocess_method) + "_" + str(now.strftime("%d-%m-%Y %H:%M")) + file_format
     return name
 
-# preprocess_method - способ подготовки данных. 1 - нормализация; 2 - стандартизация; по умолчанию - нормализация
-def load_and_preprocess_data(path_to_data, preprocess_method=1):
+# preprocess_method - способ подготовки данных. 1 - нормализация; 2 - стандартизация
+def load_and_preprocess_data(path_to_data, preprocess_method):
     data = pd.read_csv(path_to_data, sep=';', thousands=",", low_memory=False)
     del data["path_to_cell"]
 
@@ -62,14 +62,13 @@ def get_load_file_stats(y):
 
 
 # функция обучения классификаторов
-def control_classifiers(X, y, num_classifier):
+def control_classifiers(X, y, num_classifier,preprocess_method):
     model = classifiers[num_classifier]
     model.fit(X, y)
     expected = y
     predicted = model.predict(X)
 
-    file_name = generate_save_name(classifiers[num_classifier])
+    file_name = generate_save_name(classifiers[num_classifier],preprocess_method)
     dump(model, file_name)
-    # load('filename.joblib')
 
     return (expected, predicted)
