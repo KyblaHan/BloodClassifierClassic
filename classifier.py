@@ -23,7 +23,7 @@ classifiers = [
 def generate_save_name(classifier,preprocess_method):
 
     classifier = str(classifier)
-    name = "Weights/Classic/"
+    name = "ProjectData/Weights/Classic/"
     file_format = ".joblib"
     now = datetime.datetime.now()
     name = name + classifier + "_" + str(preprocess_method) + "_" + str(now.strftime("%d-%m-%Y %H:%M")) + file_format

@@ -43,7 +43,7 @@
  [],
  False,
  False,
- 1616014704,
+ 1616015669,
  [('run.exe',
    'c:\\_programming\\bloodclassifierclassic\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\run.exe',
    'EXECUTABLE')])

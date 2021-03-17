@@ -335,7 +335,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -351,7 +351,7 @@ class Ui_MainWindow(object):
         self.preprocess_type.setItemText(0, _translate("MainWindow", "Стандартизация"))
         self.preprocess_type.setItemText(1, _translate("MainWindow", "Нормализация"))
         self.label_2.setText(_translate("MainWindow", "Способ предобработки данных:"))
-        self.path_to_data.setText(_translate("MainWindow", "C:\\_Programming\\BloodClassifierClassic\\Data\\cells_all.csv"))
+        self.path_to_data.setText(_translate("MainWindow", "C:\\_Programming\\BloodClassifierClassic\\ProjectData\\Data\\cells_all.csv"))
         self.btn_open_path_to_data.setText(_translate("MainWindow", "Открыть в проводнике"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Обучение моделей (классика)"))
         self.label_18.setText(_translate("MainWindow", "Выберите модель для загрузки:"))
