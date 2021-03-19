@@ -10,7 +10,7 @@ import classifier
 import data_prep
 from sklearn import metrics
 import os
-
+import neiron
 
 
 # pyuic5 UI/MainWindow.ui -o UI/MainWindow.py
@@ -44,6 +44,15 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.btn_open_input_data_path.clicked.connect(self.btn_open_input_data_path_clicked)
         self.ui.btn_open_output_bmp_data_path.clicked.connect(self.btn_open_output_bmp_data_path_clicked)
         self.ui.btn_open_output_png_data_path.clicked.connect(self.btn_open_output_png_data_path_clicked)
+        # ===4================================
+        self.ui.btn_choose_neiron_train_data_path.clicked.connect(self.btn_choose_neiron_train_data_path_clicked)
+        self.ui.btn_choose_neiron_test_data_path.clicked.connect(self.btn_choose_neiron_test_data_path_clicked)
+        self.ui.btn_open_neiron_train_data_path.clicked.connect(self.btn_open_neiron_train_data_path_clicked)
+        self.ui.btn_open_neiron_test_data_path.clicked.connect(self.btn_open_neiron_test_data_path_clicked)
+        self.ui.btn_open_neiron_weights_path.clicked.connect(self.btn_open_neiron_weights_path_clicked)
+        self.ui.btn_start_neiron_train.clicked.connect(self.btn_start_neiron_train_clicked)
+        self.ui.btn_neiron_test.clicked.connect(self.btn_neiron_test_clicked)
+        self.ui.btn_neiron_additional_train.clicked.connect(self.btn_neiron_additional_train_clicked)
 
     # ====Управление первой вкладкой====================================================
     def btn_open_path_to_data_clicked(self):
@@ -53,7 +62,8 @@ class mywindow(QtWidgets.QMainWindow):
         os.startfile(path)
 
     def btn_fit_clicked(self):
-        expected, predicted = classifier.control_classifiers(self.X, self.y, self.ui.classifier_type.currentIndex(), self.ui.preprocess_type.currentText())
+        expected, predicted = classifier.control_classifiers(self.X, self.y, self.ui.classifier_type.currentIndex(),
+                                                             self.ui.preprocess_type.currentText())
         self.ui.label_4.setText(metrics.classification_report(expected, predicted))
         self.load_train_predictions_matrix_table(metrics.confusion_matrix(expected, predicted))
 
@@ -158,7 +168,7 @@ class mywindow(QtWidgets.QMainWindow):
     def btn_start_devider_clicked(self):
         data_prep.devide_data(self.ui.input_data_path.text(), self.ui.output_bmp_data_path.text(),
                               self.ui.output_png_data_path.text(), self.ui.checkBox_convert_png.isChecked(),
-                              int(self.ui.spinBox.value()),self.ui.progressBar
+                              int(self.ui.spinBox.value()), self.ui.progressBar
                               )
 
         self.load_table(self.ui.table_input_info,
@@ -188,6 +198,40 @@ class mywindow(QtWidgets.QMainWindow):
 
                 col += 1
             row += 1
+
+    # ======================================4===========================================
+    def btn_choose_neiron_train_data_path_clicked(self):
+        file_path = QFileDialog.getExistingDirectory(self, "Выберите папку")
+        self.ui.neiron_train_data_path.setText(file_path)
+
+    def btn_choose_neiron_test_data_path_clicked(self):
+        file_path = QFileDialog.getExistingDirectory(self, "Выберите папку")
+        self.ui.neiron_test_data_path.setText(file_path)
+
+    def btn_open_neiron_train_data_path_clicked(self):
+        path = self.ui.neiron_train_data_path.text()
+        path = os.path.realpath(path)
+        os.startfile(path)
+
+    def btn_open_neiron_test_data_path_clicked(self):
+        path = self.ui.neiron_test_data_path.text()
+        path = os.path.realpath(path)
+        os.startfile(path)
+
+    def btn_open_neiron_weights_path_clicked(self):
+        path = "ProjectData//Weights//Neiron"
+        path = os.path.realpath(path)
+        os.startfile(path)
+
+    def btn_start_neiron_train_clicked(self):
+        print("!!")
+        neiron.StartTrain(self.ui.neiron_train_data_path.text(), self.ui.use_gpu.isChecked(), self.ui.epoch.value())
+
+    def btn_neiron_test_clicked(self):
+        pass
+
+    def btn_neiron_additional_train_clicked(self):
+        pass
 
 
 app = QtWidgets.QApplication([])

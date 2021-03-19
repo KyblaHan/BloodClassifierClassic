@@ -20,7 +20,6 @@ def get_folder_stats(path):
         stats.append((str(folder.name), str(count_images)))
 
     return stats
-
 # автосоздание паопок
 def create_folder(input_path,path_to_save, folder):
 

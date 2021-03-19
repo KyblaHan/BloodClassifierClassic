@@ -48,7 +48,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -550,7 +550,7 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0,0,0">
        <item row="1" column="2">
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="btn_choose_neiron_test_data_path">
          <property name="text">
           <string>Выбрать путь</string>
          </property>
@@ -564,42 +564,42 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="btn_choose_neiron_train_data_path">
          <property name="text">
           <string>Выбрать путь</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_2">
+        <widget class="QLineEdit" name="neiron_test_data_path">
          <property name="text">
-          <string>C:\_Programming\_DataSets\Multiclass\png_devided_data</string>
+          <string>C:\_Programming\_DataSets\Multiclass\png_devided_data\test</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="neiron_train_data_path">
          <property name="text">
-          <string>C:\_Programming\_DataSets\Multiclass\png_devided_data</string>
+          <string>C:\_Programming\_DataSets\Multiclass\png_devided_data\train</string>
          </property>
         </widget>
        </item>
        <item row="0" column="3">
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="btn_open_neiron_train_data_path">
          <property name="text">
           <string>Открыть в проводнике</string>
          </property>
         </widget>
        </item>
        <item row="1" column="3">
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="btn_open_neiron_test_data_path">
          <property name="text">
           <string>Открыть в проводнике</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QSpinBox" name="spinBox_2">
+        <widget class="QSpinBox" name="epoch">
          <property name="suffix">
           <string/>
          </property>
@@ -636,21 +636,21 @@
         </widget>
        </item>
        <item row="2" column="3">
-        <widget class="QPushButton" name="pushButton_10">
+        <widget class="QPushButton" name="btn_open_neiron_weights_path">
          <property name="text">
           <string>Открыть в проводнике</string>
          </property>
         </widget>
        </item>
        <item row="3" column="2">
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="use_gpu">
          <property name="text">
           <string>Использование ГПУ</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QComboBox" name="comboBox_3"/>
+        <widget class="QComboBox" name="select_neiron_weights"/>
        </item>
       </layout>
      </widget>
@@ -659,27 +659,27 @@
        <rect>
         <x>10</x>
         <y>130</y>
-        <width>1731</width>
+        <width>1871</width>
         <height>31</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QPushButton" name="pushButton_7">
+        <widget class="QPushButton" name="btn_start_neiron_train">
          <property name="text">
           <string>Запустить обучение</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_8">
+        <widget class="QPushButton" name="btn_neiron_test">
          <property name="text">
           <string>Протестировать</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_9">
+        <widget class="QPushButton" name="btn_neiron_additional_train">
          <property name="text">
           <string>Дообучить модель</string>
          </property>
