@@ -1,5 +1,10 @@
-Need python 3.8
+Необходимые библиотеки и питон
+
+Python 3.8
 pip install opencv-python
 pip install scikit-learn
 pip install tensorflow
-
+pip install pyqt5-tools
+pip install PyQt5
+pip install pandas
+pip install Pillow
