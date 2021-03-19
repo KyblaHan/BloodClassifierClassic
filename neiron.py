@@ -33,6 +33,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                  verbose=1)
 
 
+
 def preprocess_image(image):
     image = tf.image.decode_jpeg(image, channels=3)
     image = tf.image.resize(image, [192, 192])
@@ -86,10 +87,16 @@ def InitModel(PATH_TO_DATA):
     return model
 
 
-def StartTrain(path, use_gpu,EPOCHS):
+def StartTrain(path, use_gpu, EPOCHS):
 
-    if use_gpu == False:
+    if not use_gpu:
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+    else:
+        physical_devices = tf.config.experimental.list_physical_devices('GPU')
+        assert len(physical_devices) > 0, "Not enough GPU hardware devices available"
+        config = tf.config.experimental.set_memory_growth(physical_devices[0], True)
+
+    # os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 
     # log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     # log_dir = "logs/fit/" + datetime.datetime.now().strftime("train_80")
