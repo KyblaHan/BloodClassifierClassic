@@ -30,6 +30,7 @@ def generate_save_name(classifier,preprocess_method):
     return name
 
 
+
 # preprocess_method - способ подготовки данных. 1 - нормализация; 2 - стандартизация
 def load_and_preprocess_data(path_to_data, preprocess_method):
     data = pd.read_csv(path_to_data, sep=';', thousands=",", low_memory=False)
