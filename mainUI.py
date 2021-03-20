@@ -225,7 +225,7 @@ class mywindow(QtWidgets.QMainWindow):
 
     def btn_start_neiron_train_clicked(self):
         print("!!")
-        neiron.StartTrain(self.ui.neiron_train_data_path.text(), self.ui.use_gpu.isChecked(), self.ui.epoch.value())
+        neiron.start_train(self.ui.neiron_train_data_path.text(), self.ui.use_gpu.isChecked(), self.ui.epoch.value())
 
     def btn_neiron_test_clicked(self):
         pass
@@ -233,9 +233,8 @@ class mywindow(QtWidgets.QMainWindow):
     def btn_neiron_additional_train_clicked(self):
         pass
 
-
-app = QtWidgets.QApplication([])
-application = mywindow()
-application.show()
-
-sys.exit(app.exec())
+if __name__=="__main__":
+    app = QtWidgets.QApplication([])
+    application = mywindow()
+    application.show()
+    sys.exit(app.exec())

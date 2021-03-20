@@ -48,7 +48,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -238,7 +238,7 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="1" column="1">
-        <widget class="QComboBox" name="comboBox"/>
+        <widget class="QComboBox" name="selector_model"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_18">
@@ -248,17 +248,17 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_4"/>
+        <widget class="QLineEdit" name="path_to_test_data"/>
        </item>
        <item row="0" column="3">
-        <widget class="QPushButton" name="pushButton_12">
+        <widget class="QPushButton" name="btn_open_path_to_test_data">
          <property name="text">
           <string>Открыть в проводнике</string>
          </property>
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QPushButton" name="pushButton_11">
+        <widget class="QPushButton" name="btn_select_path_to_test_data">
          <property name="text">
           <string>Выбрать файл</string>
          </property>
@@ -279,7 +279,11 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QComboBox" name="comboBox_2"/>
+        <widget class="QComboBox" name="preprocess_type_test">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -294,14 +298,14 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QPushButton" name="pushButton_14">
+        <widget class="QPushButton" name="btn_load_test_data">
          <property name="text">
           <string>Загрузить данные в Систему</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_13">
+        <widget class="QPushButton" name="btn_test">
          <property name="text">
           <string>Тест</string>
          </property>
@@ -642,13 +646,6 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="2">
-        <widget class="QCheckBox" name="use_gpu">
-         <property name="text">
-          <string>Использование ГПУ</string>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="1">
         <widget class="QComboBox" name="select_neiron_weights"/>
        </item>
@@ -658,7 +655,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
+        <y>170</y>
         <width>1871</width>
         <height>31</height>
        </rect>
@@ -686,6 +683,69 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>210</y>
+        <width>1871</width>
+        <height>741</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="horizontalLayoutWidget_5">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>1871</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QCheckBox" name="use_gpu">
+         <property name="text">
+          <string>Использование ГПУ</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>Тестировать каждую эпоху</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_2">
+         <property name="text">
+          <string>Тестировать обучающую и тестовую выборку</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_3">
+         <property name="text">
+          <string>Тестировать в разрезе каждого класса</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>1760</x>
+        <y>960</y>
+        <width>121</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Сохранить в CSV</string>
+      </property>
      </widget>
     </widget>
    </widget>

@@ -8,9 +8,6 @@ import shutil
 import cv2
 import numpy as np
 
-
-
-
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 BATCH_SIZE = 32
 
@@ -20,10 +17,11 @@ BATCH_SIZE = 32
 # PATH_TO_TEST = "\TestDataSet_20"
 # LABEL_NAMES = ['Базофил', 'Бласты', 'Лимфоцит', 'Метамиелоцит', 'Миелоцит', 'Моноцит', 'Нормобласты',
 #                'Палочкоядерный нейтрофил', 'Промиелоцит', 'Сегментноядерный нейтрофил', 'Эозинофил']
-EPOCHS = 10
-act = 'relu'
+# EPOCHS = 10
+# act = 'relu'
 TEST_STEPS = 100
 # checkpoint_path = "Weights/"+datetime.datetime.now().strftime("%Y%m%d-%H%M%S")+"/cp.ckpt"
+
 checkpoint_path = "ProjectData//Weights/Neiron//cp.ckpt"
 
 checkpoint_dir = os.path.dirname(checkpoint_path)
@@ -31,7 +29,8 @@ checkpoint_dir = os.path.dirname(checkpoint_path)
 cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
                                                  save_weights_only=True,
                                                  verbose=1)
-
+def generate_checkpoint_callback():
+    pass
 
 
 def preprocess_image(image):
@@ -40,13 +39,11 @@ def preprocess_image(image):
     image /= 255.0  # normalize to [0,1] range
     return image
 
-
 def load_and_preprocess_image(path):
     image = tf.io.read_file(path)
     return preprocess_image(image)
 
-
-def InitDataSet(path):
+def initiate_dataset(path):
     path = pathlib.Path(path)
     all_image_paths = list(path.glob('*/*'))
     all_image_paths = [str(path) for path in all_image_paths]
@@ -62,33 +59,28 @@ def InitDataSet(path):
     image_label_ds = image_label_ds.cache()
     return image_label_ds
 
-
-def CountImg(path):
+def count_images(path):
     path = pathlib.Path(path)
     all_image_paths = list(path.glob('*/*'))
     return len(all_image_paths)
 
-
-def GelLabelsNames(path):
+def get_label_names(path):
     path = pathlib.Path(path)
     return sorted(item.name for item in path.glob('*/') if item.is_dir())
 
-
-def InitModel(PATH_TO_DATA):
+def initiate_model(PATH_TO_DATA):
     model = tf.keras.Sequential([
-        tf.keras.layers.Conv2D(32, (3, 3), activation=act, input_shape=(192, 192, 3)),
+        tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(192, 192, 3)),
         tf.keras.layers.MaxPooling2D(2, 2),
-        tf.keras.layers.Conv2D(64, (3, 3), activation=act),
+        tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
         tf.keras.layers.MaxPooling2D((2, 2)),
-        tf.keras.layers.Conv2D(64, (3, 3), activation=act),
+        tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
         tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(64, activation=act),
-        tf.keras.layers.Dense(len(GelLabelsNames(PATH_TO_DATA)), activation='softmax')])
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dense(len(get_label_names(PATH_TO_DATA)), activation='softmax')])
     return model
 
-
-def StartTrain(path, use_gpu, EPOCHS):
-
+def activate_gpu(use_gpu):
     if not use_gpu:
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
     else:
@@ -96,73 +88,68 @@ def StartTrain(path, use_gpu, EPOCHS):
         assert len(physical_devices) > 0, "Not enough GPU hardware devices available"
         config = tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
-    # os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
+def start_train(path, use_gpu, epochs):
+    activate_gpu(use_gpu)
 
-    # log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    # log_dir = "logs/fit/" + datetime.datetime.now().strftime("train_80")
-    # tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
-
-    image_label_ds = InitDataSet(path)
-    ds = image_label_ds.shuffle(buffer_size=CountImg(path))
-    print(CountImg(path))
+    image_label_ds = initiate_dataset(path)
+    ds = image_label_ds.shuffle(buffer_size=count_images(path))
+    # print(count_images(path))
     ds = ds.repeat()
     ds = ds.batch(BATCH_SIZE)
     # `prefetch` позволяет датасету извлекать пакеты в фоновом режиме, во время обучения модели.
     ds = ds.prefetch(buffer_size=AUTOTUNE)
 
-
-    model = InitModel(path)
+    model = initiate_model(path)
 
     model.compile(optimizer=tf.keras.optimizers.Adam(),
                   loss='sparse_categorical_crossentropy',
                   metrics=["accuracy"])
 
     model.summary()
-    print(CountImg(path) / BATCH_SIZE)
-    steps_per_epoch = tf.math.ceil(CountImg(path) / BATCH_SIZE).numpy()
+    # print(count_images(path) / BATCH_SIZE)
+    steps_per_epoch = tf.math.ceil(count_images(path) / BATCH_SIZE).numpy()
 
-    model.fit(ds, epochs=EPOCHS,
+    model.fit(ds,
+              epochs=epochs,
               steps_per_epoch=steps_per_epoch,
-              # callbacks=[tensorboard_callback, cp_callback],
-              callbacks= cp_callback,
+              callbacks=cp_callback,
               verbose=1)
     print("обучение завершенно")
 
 
-def TestNeiron(path):
-    ds_test = InitDataSet(path)
-    ds = ds_test.shuffle(buffer_size=CountImg(path))
+def test_model(path, use_gpu,path_to_weights):
+    activate_gpu(use_gpu)
+
+    ds_test = initiate_dataset(path)
+    ds = ds_test.shuffle(buffer_size=count_images(path))
     ds = ds.repeat()
     ds = ds.batch(BATCH_SIZE)
     # `prefetch` позволяет датасету извлекать пакеты в фоновом режиме, во время обучения модели.
     ds = ds.prefetch(buffer_size=AUTOTUNE)
-    model = InitModel()
+    model = initiate_model()
     model.compile(optimizer=tf.keras.optimizers.Adam(),
                   loss='sparse_categorical_crossentropy',
                   metrics=["accuracy"])
 
     model.summary()
 
-    print("Загрузка модели")
-    model.load_weights(checkpoint_path)
-    print("Анализ точности модели")
+    # print("Загрузка модели")
+    model.load_weights(path_to_weights)
+    # print("Анализ точности модели")
     test_loss, test_acc = model.evaluate(ds, verbose=1, steps=TEST_STEPS)
     print('\nТочность на проверочных данных:', test_acc)
 
-def additional_train(path):
-    log_dir = "logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    # log_dir = "C:\_Programming\BloodClassifier\Weights_20"
-    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
-    image_label_ds = InitDataSet(path)
-    ds = image_label_ds.shuffle(buffer_size=CountImg(path))
-    print(CountImg(path))
+def additional_train(path):
+    image_label_ds = initiate_dataset(path)
+    ds = image_label_ds.shuffle(buffer_size=count_images(path))
+    print(count_images(path))
     ds = ds.repeat()
     ds = ds.batch(BATCH_SIZE)
     # `prefetch` позволяет датасету извлекать пакеты в фоновом режиме, во время обучения модели.
     ds = ds.prefetch(buffer_size=AUTOTUNE)
 
-    model = InitModel()
+    model = initiate_model()
 
     model.compile(optimizer=tf.keras.optimizers.Adam(),
                   loss='sparse_categorical_crossentropy',
@@ -173,11 +160,13 @@ def additional_train(path):
     checkpoint_path = "Weights_20/cp.ckpt"
     model.load_weights(checkpoint_path)
 
-    print(CountImg(path) / BATCH_SIZE)
-    steps_per_epoch = tf.math.ceil(CountImg(path) / BATCH_SIZE).numpy()
+    print(count_images(path) / BATCH_SIZE)
+    steps_per_epoch = tf.math.ceil(count_images(path) / BATCH_SIZE).numpy()
 
-    model.fit(ds, epochs=EPOCHS, steps_per_epoch=steps_per_epoch, callbacks=[tensorboard_callback, cp_callback],
+    model.fit(ds,
+              epochs=EPOCHS,
+              teps_per_epoch=steps_per_epoch,
+              # callbacks=[tensorboard_callback, cp_callback],
+              callbacks=cp_callback,
               verbose=1)
     print("обучение завершенно")
-
-
