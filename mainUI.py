@@ -1,4 +1,5 @@
 # В данном файле описано управление основным интерфейсом программы и связи с остальными функцциями
+import pathlib
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QMessageBox
@@ -36,6 +37,8 @@ class mywindow(QtWidgets.QMainWindow):
         for m in classifier.classifiers:
             self.ui.classifier_type.addItem(str(m))
         # ===2============================
+        self.ui.tabWidget.currentChanged.connect(self.tab_changed)
+        self.ui.selector_model.currentIndexChanged.connect(self.set_preprocess_type_test)
         # ===3================================
         self.ui.btn_choose_input_data_path.clicked.connect(self.btn_choose_input_data_path_clicked)
         self.ui.btn_choose_output_bmp_data_path.clicked.connect(self.btn_choose_output_bmp_data_path_clicked)
@@ -135,6 +138,28 @@ class mywindow(QtWidgets.QMainWindow):
             row += 1
 
     # ====Управление второй вкладкой=================================================
+    def tab_changed(self):
+        if self.ui.tabWidget.currentIndex() == 1:
+            path = "ProjectData/Weights/Classic"
+            path = pathlib.Path(path)
+            all_model_paths = list(path.glob('*'))
+            # print()
+            self.ui.selector_model.clear()
+            for x in all_model_paths:
+                self.ui.selector_model.addItem(str(x))
+            # selector_model
+
+    def set_preprocess_type_test(self):
+        type = self.ui.selector_model.currentText().split("_")[2]
+
+        if type ==  "Стандартизация":
+            print(type)
+            self.ui.preprocess_type_test.setCurrentIndex(0)
+            self.ui.preprocess_type_test.setEnabled(False)
+
+        else:
+            self.ui.preprocess_type_test.setCurrentIndex(1)
+            self.ui.preprocess_type_test.setEnabled(False)
 
     # ====Управление третьей вкладкой===================================================
     def btn_open_input_data_path_clicked(self):
@@ -228,7 +253,7 @@ class mywindow(QtWidgets.QMainWindow):
         neiron.start_train(self.ui.neiron_train_data_path.text(), self.ui.use_gpu.isChecked(), self.ui.epoch.value())
 
     def btn_neiron_test_clicked(self):
-        pass
+        neiron.test_model(self.ui.neiron_test_data_path.text(),self.ui.use_gpu.isChecked(),"ProjectData//Weights/Neiron//cp.ckpt")
 
     def btn_neiron_additional_train_clicked(self):
         pass
