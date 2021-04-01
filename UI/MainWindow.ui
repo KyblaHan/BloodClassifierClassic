@@ -209,7 +209,7 @@
        <item row="0" column="1">
         <widget class="QLineEdit" name="path_to_data">
          <property name="text">
-          <string>C:\_Programming\BloodClassifierClassic\ProjectData\Data\cells_all.csv</string>
+          <string>C:\_Programming\BloodClassifierClassic\ProjectData\Data\train_multiclass.csv</string>
          </property>
         </widget>
        </item>
@@ -248,7 +248,11 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="path_to_test_data"/>
+        <widget class="QLineEdit" name="path_to_test_data">
+         <property name="text">
+          <string>C:\_Programming\BloodClassifierClassic\ProjectData\Data\test_multiclass.csv</string>
+         </property>
+        </widget>
        </item>
        <item row="0" column="3">
         <widget class="QPushButton" name="btn_open_path_to_test_data">
@@ -322,6 +326,64 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QTableWidget" name="test_predictions_matrix">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>550</y>
+        <width>1861</width>
+        <height>421</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="status_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>150</y>
+        <width>761</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Статус загрузки данных:</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="table_file_info_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>170</y>
+        <width>281</width>
+        <height>371</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_20">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>170</y>
+        <width>991</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+        <stylestrategy>PreferAntialias</stylestrategy>
+       </font>
+      </property>
+      <property name="text">
+       <string>Тут будут данные по точностям обученной модели</string>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
