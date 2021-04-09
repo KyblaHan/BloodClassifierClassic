@@ -30,7 +30,7 @@ for n in neirons:
     print("--->", n)
     # path_to_data =
 
-    X, y = load(r"C:\_Programming\BloodClassifierClassic\ProjectData\Data\train_multiclass.csv")
+    X, y = load(r"/ProjectData/Data/train_multiclass.csv")
     # print(len(y))
     # , batch_size = int(len(y) / 1),
     mlp = MLPClassifier(hidden_layer_sizes=(512, 32, n,), max_iter=1000, solver="adam", activation="relu",
@@ -43,7 +43,7 @@ for n in neirons:
     predicted = mlp.predict(X)
     train_acc = metrics.accuracy_score(expected, predicted)
 
-    X, y = load(r"C:\_Programming\BloodClassifierClassic\ProjectData\Data\test_multiclass.csv")
+    X, y = load(r"/ProjectData/Data/test_multiclass.csv")
     expected = y
     predicted = mlp.predict(X)
     test_acc = metrics.accuracy_score(expected, predicted)

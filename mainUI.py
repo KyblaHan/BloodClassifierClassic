@@ -27,6 +27,8 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.tabWidget.setCurrentIndex(0)
+        #===init classifiers==============
+        classifier.load_params()
         # ===1==================
         self.ui.btn_select_input_data.clicked.connect(self.btn_select_input_data_clicked)
         self.ui.btn_load_data.clicked.connect(self.btn_load_data_clicked)

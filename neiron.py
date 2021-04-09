@@ -240,3 +240,4 @@ def train_and_test(path_to_train, path_to_test, use_gpu, epochs, train_steps, te
     activate_gpu(use_gpu)
 # initiate_dataset_one_class(r"C:\_Programming\_DataSets\Multiclass\png_devided_data\test\Myelocyte")
 # test_model_one_class(r"C:\_Programming\_DataSets\Two class\png_devided_data\test", True, "ProjectData//Weights/Neiron//cp.ckpt")
+# test_model(r"C:\_Programming\_DataSets\Multiclass\png_devided_data\test",True,"ProjectData//Weights/Neiron//cp.ckpt")
