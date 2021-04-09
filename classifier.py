@@ -7,7 +7,7 @@ from sklearn.multioutput import MultiOutputClassifier, ClassifierChain
 from sklearn.preprocessing import StandardScaler
 from sklearn import preprocessing
 from sklearn.ensemble import ExtraTreesClassifier, AdaBoostClassifier, RandomForestClassifier, BaggingClassifier, \
-    GradientBoostingClassifier,  VotingClassifier, StackingClassifier
+    GradientBoostingClassifier, VotingClassifier, StackingClassifier
 from sklearn.svm import SVC, NuSVC, LinearSVC
 from sklearn import metrics
 from sklearn.linear_model import LogisticRegression, LinearRegression, Ridge, RidgeCV, RidgeClassifier, \
@@ -27,6 +27,7 @@ import sklearn.utils._weight_vector
 from sklearn.tree import DecisionTreeClassifier
 
 classifiers = [
+    # VotingClassifier([("1",KNeighborsClassifier()), ("2",LinearSVC()), ("3",MLPClassifier())]),
     LinearSVC(),
     # NuSVC(),
     SVC(),
@@ -37,7 +38,7 @@ classifiers = [
     # OneVsRestClassifier(),
     # OneVsOneClassifier(),
     RidgeClassifierCV(),
-    # VotingClassifier(),
+
     # StackingClassifier(),
     # HistGradientBoostingClassifier(),
     GradientBoostingClassifier(),
@@ -137,37 +138,56 @@ def test_model(X, y, path):
 # a= metrics.confusion_matrix(expected, predicted)
 # print(a)
 
+def get_best_x(X, y, best=-1):
+    if best == -1:
+        clf = RandomForestClassifier()
+        clf.fit(X, y)
+        params = clf.feature_importances_
+        x = 0
+        for p in params:
+            x += p
+        x = x / 702
+        print(x)
+
+        best = []
+        for i in range(0, 702):
+            if params[i] >= x:
+                best.append(i)
+    X = X[:, best]
+    return X, best
+
 
 def get_all_stats(path_train, path_test):
     list_acc = []
     for m in classifiers:
-
-
         X, y = load_and_preprocess_data(path_train, 1)
+        X, best = get_best_x(X, y)
         print("Обучение и тестирование: ", m)
         model = m
         a = timeit.default_timer()
         model.fit(X, y)
-        train_time = timeit.default_timer()-a
+        train_time = timeit.default_timer() - a
 
         print("Показатели на обучающих данных: ")
         expected = y
         predicted = model.predict(X)
-        print(metrics.classification_report(expected, predicted, zero_division=0))
-        print(metrics.confusion_matrix(expected, predicted))
+        # print(metrics.classification_report(expected, predicted, zero_division=0))
+        # print(metrics.confusion_matrix(expected, predicted))
         acc_train = metrics.accuracy_score(expected, predicted)
         print("Точность: ", acc_train)
 
         X, y = load_and_preprocess_data(path_test, 1)
+        X = get_best_x(X, y, best)
+
         print("Показатели на тестовых данных: ")
 
         expected = y
         a = timeit.default_timer()
         predicted = model.predict(X)
-        test_time = timeit.default_timer()-a
+        test_time = timeit.default_timer() - a
 
-        print(metrics.classification_report(expected, predicted, zero_division=0))
-        print(metrics.confusion_matrix(expected, predicted))
+        # print(metrics.classification_report(expected, predicted, zero_division=0))
+        # print(metrics.confusion_matrix(expected, predicted))
         acc_test = metrics.accuracy_score(expected, predicted)
         print("Точность: ", acc_test)
 
@@ -176,4 +196,4 @@ def get_all_stats(path_train, path_test):
         print(acc)
 
 
-get_all_stats("ProjectData/Data/train_multiclass.csv", "ProjectData/Data/test_multiclass.csv")
+# get_all_stats("ProjectData/Data/train_multiclass.csv", "ProjectData/Data/test_multiclass.csv")
