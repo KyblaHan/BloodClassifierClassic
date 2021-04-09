@@ -204,6 +204,7 @@ class mywindow(QtWidgets.QMainWindow):
             row += 1
     def btn_test_clicked(self):
         expected, predicted = classifier.test_model(self.X, self.y, self.ui.selector_model.currentText())
+        classifier.generate_test_report(self.ui.path_to_test_data.text())
         self.ui.label_20.setText(metrics.classification_report(expected, predicted,zero_division=0))
         # print(metrics.confusion_matrix(expected, predicted))
         self.load_test_predictions_matrix(metrics.confusion_matrix(expected, predicted))

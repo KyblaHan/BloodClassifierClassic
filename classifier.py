@@ -28,28 +28,28 @@ import sklearn.utils._weight_vector
 from sklearn.tree import DecisionTreeClassifier
 
 classifiers = [
-        RadiusNeighborsClassifier(),
-        RidgeClassifierCV(),
-        GradientBoostingClassifier(),
-        BaggingClassifier(),
-        DummyClassifier(),
-        RidgeClassifier(),
-        LogisticRegression(max_iter=10000),
-        SGDClassifier(),
-        PassiveAggressiveClassifier(),
-        KNeighborsClassifier(),
-        ExtraTreesClassifier(),
-        GaussianNB(),
-        AdaBoostClassifier(),
-        GaussianProcessClassifier(),
-        DecisionTreeClassifier(),
-        RandomForestClassifier(),
-        MLPClassifier()
+    # RadiusNeighborsClassifier(),
+    # RidgeClassifierCV(),
+    # GradientBoostingClassifier(),
+    # BaggingClassifier(),
+    # DummyClassifier(),
+    # RidgeClassifier(),
+    # LogisticRegression(max_iter=10000),
+    # SGDClassifier(),
+    # PassiveAggressiveClassifier(),
+    # KNeighborsClassifier(),
+    # ExtraTreesClassifier(),
+    # GaussianNB(),
+    # AdaBoostClassifier(),
+    # GaussianProcessClassifier(),
+    # DecisionTreeClassifier(),
+    # RandomForestClassifier(),
+    # MLPClassifier()
 ]
 
 
 def load_params():
-    with open("params.json") as json_file:
+    with open("ProjectData/SystemFiles/params.json") as json_file:
         data = json.load(json_file)
     classifiers.append(
         LinearSVC(
@@ -366,7 +366,6 @@ def load_params():
     )
 
 
-
 # генератор имен файлов
 def generate_save_name(classifier, preprocess_method):
     classifier = str(classifier)
@@ -387,13 +386,8 @@ def load_and_preprocess_data(path_to_data, preprocess_method):
     X = data.iloc[:, 1:]
     # Вытаскиваем лейблы
     y = data["Label"]
-    preprocess_method = 1
-    if (preprocess_method == 2):
-        # standardize the data attributes
-        X = preprocessing.scale(X)
-    else:
-        # normalize the data attributes
-        X = preprocessing.normalize(X)
+
+    X = preprocessing.normalize(X)
 
     return (X, y)
 
@@ -504,5 +498,27 @@ def get_all_stats(path_train, path_test):
         print(acc)
 
 
+def generate_test_report(path_to_data):
+    output_data = []
+
+    data = pd.read_csv(path_to_data, sep=';', thousands=",", low_memory=False)
+    paths = data["path_to_cell"]
+    del data["path_to_cell"]
+    X = data.iloc[:, 1:]
+    y = data["Label"]
+    X = preprocessing.normalize(X)
+    with open("test.pkl", 'rb') as file:
+        model = pickle.load(file)
+    expected = y
+    predicted = model.predict(X)
+
+    for i in range(0, len(paths)):
+        output_data.append((paths[i], expected[i], predicted[i]))
+
+    output_df = pd.DataFrame(output_data,columns=["path_to_cell","expected","predicted"])
+    output_df.to_csv("ProjectData/OutputData/test_report.csv")
+
+
+# generate_test_report("ProjectData/Data/test_multiclass.csv")
 # load_params()
 # get_all_stats("ProjectData/Data/train_multiclass.csv", "ProjectData/Data/test_multiclass.csv")

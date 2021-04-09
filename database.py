@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd
 from collections import Counter
 
-conn = sqlite3.connect('knowledge_base.db')
+conn = sqlite3.connect('ProjectData/SystemFiles/knowledge_base.db')
 cursor = conn.cursor()
 
 def import_db(file):
