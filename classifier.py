@@ -54,315 +54,315 @@ def load_params():
         data = json.load(json_file)
     classifiers.append(
         LinearSVC(
-            data["LinearSVC"]["penalty"],
-            data["LinearSVC"]["loss"],
-            data["LinearSVC"]["dual"],
-            data["LinearSVC"]["tol"],
-            data["LinearSVC"]["C"],
-            data["LinearSVC"]["multi_class"],
-            data["LinearSVC"]["fit_intercept"],
-            data["LinearSVC"]["intercept_scaling"],
-            data["LinearSVC"]["class_weight"],
-            data["LinearSVC"]["verbose"],
-            data["LinearSVC"]["random_state"],
-            data["LinearSVC"]["max_iter"]
+            penalty=data["LinearSVC"]["penalty"],
+            loss=data["LinearSVC"]["loss"],
+            dual=data["LinearSVC"]["dual"],
+            tol=data["LinearSVC"]["tol"],
+            C=data["LinearSVC"]["C"],
+            multi_class=data["LinearSVC"]["multi_class"],
+            fit_intercept=data["LinearSVC"]["fit_intercept"],
+            intercept_scaling=data["LinearSVC"]["intercept_scaling"],
+            class_weight=data["LinearSVC"]["class_weight"],
+            verbose=data["LinearSVC"]["verbose"],
+            random_state=data["LinearSVC"]["random_state"],
+            max_iter=data["LinearSVC"]["max_iter"]
         )
     )
     classifiers.append(
         SVC(
-            data["SVC"]["C"],
-            data["SVC"]["kernel"],
-            data["SVC"]["degree"],
-            data["SVC"]["gamma"],
-            data["SVC"]["coef0"],
-            data["SVC"]["shrinking"],
-            data["SVC"]["probability"],
-            data["SVC"]["tol"],
-            data["SVC"]["cache_size"],
-            data["SVC"]["class_weight"],
-            data["SVC"]["verbose"],
-            data["SVC"]["max_iter"],
-            data["SVC"]["decision_function_shape"],
-            data["SVC"]["break_ties"],
-            data["SVC"]["random_state"]
+            C=data["SVC"]["C"],
+            kernel=data["SVC"]["kernel"],
+            degree=data["SVC"]["degree"],
+            gamma=data["SVC"]["gamma"],
+            coef0=data["SVC"]["coef0"],
+            shrinking=data["SVC"]["shrinking"],
+            probability=data["SVC"]["probability"],
+            tol=data["SVC"]["tol"],
+            cache_size=data["SVC"]["cache_size"],
+            class_weight=data["SVC"]["class_weight"],
+            verbose=data["SVC"]["verbose"],
+            max_iter=data["SVC"]["max_iter"],
+            decision_function_shape=data["SVC"]["decision_function_shape"],
+            break_ties=data["SVC"]["break_ties"],
+            random_state=data["SVC"]["random_state"]
         )
     )
     classifiers.append(
         RadiusNeighborsClassifier(
-            data["RadiusNeighborsClassifier"]["radius"],
-            data["RadiusNeighborsClassifier"]["weights"],
-            data["RadiusNeighborsClassifier"]["algorithm"],
-            data["RadiusNeighborsClassifier"]["leaf_size"],
-            data["RadiusNeighborsClassifier"]["p"],
-            data["RadiusNeighborsClassifier"]["metric"],
-            data["RadiusNeighborsClassifier"]["outlier_label"],
-            data["RadiusNeighborsClassifier"]["metric_params"],
-            data["RadiusNeighborsClassifier"]["n_jobs"]
+            radius=data["RadiusNeighborsClassifier"]["radius"],
+            weights=data["RadiusNeighborsClassifier"]["weights"],
+            algorithm=data["RadiusNeighborsClassifier"]["algorithm"],
+            leaf_size=data["RadiusNeighborsClassifier"]["leaf_size"],
+            p=data["RadiusNeighborsClassifier"]["p"],
+            metric=data["RadiusNeighborsClassifier"]["metric"],
+            outlier_label=data["RadiusNeighborsClassifier"]["outlier_label"],
+            metric_params=data["RadiusNeighborsClassifier"]["metric_params"],
+            n_jobs=data["RadiusNeighborsClassifier"]["n_jobs"]
         )
     )
     classifiers.append(
         RidgeClassifierCV(
-            data["RidgeClassifierCV"]["alphas"],
-            data["RidgeClassifierCV"]["fit_intercept"],
-            data["RidgeClassifierCV"]["normalize"],
-            data["RidgeClassifierCV"]["scoring"],
-            data["RidgeClassifierCV"]["cv"],
-            data["RidgeClassifierCV"]["class_weight"],
-            data["RidgeClassifierCV"]["store_cv_values"]
+            alphas=data["RidgeClassifierCV"]["alphas"],
+            fit_intercept=data["RidgeClassifierCV"]["fit_intercept"],
+            normalize=data["RidgeClassifierCV"]["normalize"],
+            scoring=data["RidgeClassifierCV"]["scoring"],
+            cv=data["RidgeClassifierCV"]["cv"],
+            class_weight=data["RidgeClassifierCV"]["class_weight"],
+            store_cv_values=data["RidgeClassifierCV"]["store_cv_values"]
         )
     )
     classifiers.append(
         GradientBoostingClassifier(
-            data["GradientBoostingClassifier"]["loss"],
-            data["GradientBoostingClassifier"]["learning_rate"],
-            data["GradientBoostingClassifier"]["n_estimators"],
-            data["GradientBoostingClassifier"]["subsample"],
-            data["GradientBoostingClassifier"]["criterion"],
-            data["GradientBoostingClassifier"]["min_samples_split"],
-            data["GradientBoostingClassifier"]["min_samples_leaf"],
-            data["GradientBoostingClassifier"]["min_weight_fraction_leaf"],
-            data["GradientBoostingClassifier"]["max_depth"],
-            data["GradientBoostingClassifier"]["min_impurity_decrease"],
-            data["GradientBoostingClassifier"]["min_impurity_split"],
-            data["GradientBoostingClassifier"]["init"],
-            data["GradientBoostingClassifier"]["random_state"],
-            data["GradientBoostingClassifier"]["max_features"],
-            data["GradientBoostingClassifier"]["verbose"],
-            data["GradientBoostingClassifier"]["max_leaf_nodes"],
-            data["GradientBoostingClassifier"]["warm_start"],
-            data["GradientBoostingClassifier"]["validation_fraction"],
-            data["GradientBoostingClassifier"]["n_iter_no_change"],
-            data["GradientBoostingClassifier"]["tol"],
-            data["GradientBoostingClassifier"]["ccp_alpha"]
+            loss=data["GradientBoostingClassifier"]["loss"],
+            learning_rate=data["GradientBoostingClassifier"]["learning_rate"],
+            n_estimators=data["GradientBoostingClassifier"]["n_estimators"],
+            subsample=data["GradientBoostingClassifier"]["subsample"],
+            criterion=data["GradientBoostingClassifier"]["criterion"],
+            min_samples_split=data["GradientBoostingClassifier"]["min_samples_split"],
+            min_samples_leaf=data["GradientBoostingClassifier"]["min_samples_leaf"],
+            min_weight_fraction_leaf=data["GradientBoostingClassifier"]["min_weight_fraction_leaf"],
+            max_depth=data["GradientBoostingClassifier"]["max_depth"],
+            min_impurity_decrease=data["GradientBoostingClassifier"]["min_impurity_decrease"],
+            min_impurity_split=data["GradientBoostingClassifier"]["min_impurity_split"],
+            init=data["GradientBoostingClassifier"]["init"],
+            random_state=data["GradientBoostingClassifier"]["random_state"],
+            max_features=data["GradientBoostingClassifier"]["max_features"],
+            verbose=data["GradientBoostingClassifier"]["verbose"],
+            max_leaf_nodes=data["GradientBoostingClassifier"]["max_leaf_nodes"],
+            warm_start=data["GradientBoostingClassifier"]["warm_start"],
+            validation_fraction=data["GradientBoostingClassifier"]["validation_fraction"],
+            n_iter_no_change=data["GradientBoostingClassifier"]["n_iter_no_change"],
+            tol=data["GradientBoostingClassifier"]["tol"],
+            ccp_alpha=data["GradientBoostingClassifier"]["ccp_alpha"]
         )
     )
     classifiers.append(
         BaggingClassifier(
-            data["BaggingClassifier"]["base_estimator"],
-            data["BaggingClassifier"]["n_estimators"],
-            data["BaggingClassifier"]["max_samples"],
-            data["BaggingClassifier"]["max_features"],
-            data["BaggingClassifier"]["bootstrap"],
-            data["BaggingClassifier"]["bootstrap_features"],
-            data["BaggingClassifier"]["oob_score"],
-            data["BaggingClassifier"]["warm_start"],
-            data["BaggingClassifier"]["n_jobs"],
-            data["BaggingClassifier"]["random_state"],
-            data["BaggingClassifier"]["verbose"]
+            base_estimator=data["BaggingClassifier"]["base_estimator"],
+            n_estimators=data["BaggingClassifier"]["n_estimators"],
+            max_samples=data["BaggingClassifier"]["max_samples"],
+            max_features=data["BaggingClassifier"]["max_features"],
+            bootstrap=data["BaggingClassifier"]["bootstrap"],
+            bootstrap_features=data["BaggingClassifier"]["bootstrap_features"],
+            oob_score=data["BaggingClassifier"]["oob_score"],
+            warm_start=data["BaggingClassifier"]["warm_start"],
+            n_jobs=data["BaggingClassifier"]["n_jobs"],
+            random_state=data["BaggingClassifier"]["random_state"],
+            verbose=data["BaggingClassifier"]["verbose"]
         )
     )
     classifiers.append(
         DummyClassifier(
-            data["DummyClassifier"]["strategy"],
-            data["DummyClassifier"]["random_state"],
-            data["DummyClassifier"]["constant"]
+            strategy=data["DummyClassifier"]["strategy"],
+            random_state=data["DummyClassifier"]["random_state"],
+            constant=data["DummyClassifier"]["constant"]
         )
     )
     classifiers.append(
         RidgeClassifier(
-            data["RidgeClassifier"]["alpha"],
-            data["RidgeClassifier"]["fit_intercept"],
-            data["RidgeClassifier"]["normalize"],
-            data["RidgeClassifier"]["copy_X"],
-            data["RidgeClassifier"]["max_iter"],
-            data["RidgeClassifier"]["tol"],
-            data["RidgeClassifier"]["class_weight"],
-            data["RidgeClassifier"]["solver"],
-            data["RidgeClassifier"]["random_state"]
+            alpha=data["RidgeClassifier"]["alpha"],
+            fit_intercept=data["RidgeClassifier"]["fit_intercept"],
+            normalize=data["RidgeClassifier"]["normalize"],
+            copy_X=data["RidgeClassifier"]["copy_X"],
+            max_iter=data["RidgeClassifier"]["max_iter"],
+            tol=data["RidgeClassifier"]["tol"],
+            class_weight=data["RidgeClassifier"]["class_weight"],
+            solver=data["RidgeClassifier"]["solver"],
+            random_state=data["RidgeClassifier"]["random_state"]
         )
     )
     classifiers.append(
         LogisticRegression(
-            data["LogisticRegression"]["penalty"],
-            data["LogisticRegression"]["dual"],
-            data["LogisticRegression"]["tol"],
-            data["LogisticRegression"]["C"],
-            data["LogisticRegression"]["fit_intercept"],
-            data["LogisticRegression"]["intercept_scaling"],
-            data["LogisticRegression"]["class_weight"],
-            data["LogisticRegression"]["random_state"],
-            data["LogisticRegression"]["solver"],
-            data["LogisticRegression"]["max_iter"],
-            data["LogisticRegression"]["multi_class"],
-            data["LogisticRegression"]["verbose"],
-            data["LogisticRegression"]["warm_start"],
-            data["LogisticRegression"]["n_jobs"],
-            data["LogisticRegression"]["l1_ratio"]
+            penalty=data["LogisticRegression"]["penalty"],
+            dual=data["LogisticRegression"]["dual"],
+            tol=data["LogisticRegression"]["tol"],
+            C=data["LogisticRegression"]["C"],
+            fit_intercept=data["LogisticRegression"]["fit_intercept"],
+            intercept_scaling=data["LogisticRegression"]["intercept_scaling"],
+            class_weight=data["LogisticRegression"]["class_weight"],
+            random_state=data["LogisticRegression"]["random_state"],
+            solver=data["LogisticRegression"]["solver"],
+            max_iter=data["LogisticRegression"]["max_iter"],
+            multi_class=data["LogisticRegression"]["multi_class"],
+            verbose=data["LogisticRegression"]["verbose"],
+            warm_start=data["LogisticRegression"]["warm_start"],
+            n_jobs=data["LogisticRegression"]["n_jobs"],
+            l1_ratio=data["LogisticRegression"]["l1_ratio"]
         )
     )
     classifiers.append(
         SGDClassifier(
-            data["SGDClassifier"]["loss"],
-            data["SGDClassifier"]["penalty"],
-            data["SGDClassifier"]["alpha"],
-            data["SGDClassifier"]["l1_ratio"],
-            data["SGDClassifier"]["fit_intercept"],
-            data["SGDClassifier"]["max_iter"],
-            data["SGDClassifier"]["tol"],
-            data["SGDClassifier"]["shuffle"],
-            data["SGDClassifier"]["verbose"],
-            data["SGDClassifier"]["epsilon"],
-            data["SGDClassifier"]["n_jobs"],
-            data["SGDClassifier"]["random_state"],
-            data["SGDClassifier"]["learning_rate"],
-            data["SGDClassifier"]["eta0"],
-            data["SGDClassifier"]["power_t"],
-            data["SGDClassifier"]["early_stopping"],
-            data["SGDClassifier"]["validation_fraction"],
-            data["SGDClassifier"]["n_iter_no_change"],
-            data["SGDClassifier"]["class_weight"],
-            data["SGDClassifier"]["warm_start"],
-            data["SGDClassifier"]["average"]
+            loss=data["SGDClassifier"]["loss"],
+            penalty=data["SGDClassifier"]["penalty"],
+            alpha=data["SGDClassifier"]["alpha"],
+            l1_ratio=data["SGDClassifier"]["l1_ratio"],
+            fit_intercept=data["SGDClassifier"]["fit_intercept"],
+            max_iter=data["SGDClassifier"]["max_iter"],
+            tol=data["SGDClassifier"]["tol"],
+            shuffle=data["SGDClassifier"]["shuffle"],
+            verbose=data["SGDClassifier"]["verbose"],
+            epsilon=data["SGDClassifier"]["epsilon"],
+            n_jobs=data["SGDClassifier"]["n_jobs"],
+            random_state=data["SGDClassifier"]["random_state"],
+            learning_rate=data["SGDClassifier"]["learning_rate"],
+            eta0=data["SGDClassifier"]["eta0"],
+            power_t=data["SGDClassifier"]["power_t"],
+            early_stopping=data["SGDClassifier"]["early_stopping"],
+            validation_fraction=data["SGDClassifier"]["validation_fraction"],
+            n_iter_no_change=data["SGDClassifier"]["n_iter_no_change"],
+            class_weight=data["SGDClassifier"]["class_weight"],
+            warm_start=data["SGDClassifier"]["warm_start"],
+            average=data["SGDClassifier"]["average"]
         )
     )
     classifiers.append(
         PassiveAggressiveClassifier(
 
-            data["PassiveAggressiveClassifier"]["C"],
-            data["PassiveAggressiveClassifier"]["fit_intercept"],
-            data["PassiveAggressiveClassifier"]["max_iter"],
-            data["PassiveAggressiveClassifier"]["tol"],
-            data["PassiveAggressiveClassifier"]["early_stopping"],
-            data["PassiveAggressiveClassifier"]["validation_fraction"],
-            data["PassiveAggressiveClassifier"]["n_iter_no_change"],
-            data["PassiveAggressiveClassifier"]["shuffle"],
-            data["PassiveAggressiveClassifier"]["verbose"],
-            data["PassiveAggressiveClassifier"]["loss"],
-            data["PassiveAggressiveClassifier"]["n_jobs"],
-            data["PassiveAggressiveClassifier"]["random_state"],
-            data["PassiveAggressiveClassifier"]["warm_start"],
-            data["PassiveAggressiveClassifier"]["class_weight"],
-            data["PassiveAggressiveClassifier"]["average"]
+            C=data["PassiveAggressiveClassifier"]["C"],
+            fit_intercept=data["PassiveAggressiveClassifier"]["fit_intercept"],
+            max_iter=data["PassiveAggressiveClassifier"]["max_iter"],
+            tol=data["PassiveAggressiveClassifier"]["tol"],
+            early_stopping=data["PassiveAggressiveClassifier"]["early_stopping"],
+            validation_fraction=data["PassiveAggressiveClassifier"]["validation_fraction"],
+            n_iter_no_change=data["PassiveAggressiveClassifier"]["n_iter_no_change"],
+            shuffle=data["PassiveAggressiveClassifier"]["shuffle"],
+            verbose=data["PassiveAggressiveClassifier"]["verbose"],
+            loss=data["PassiveAggressiveClassifier"]["loss"],
+            n_jobs=data["PassiveAggressiveClassifier"]["n_jobs"],
+            random_state=data["PassiveAggressiveClassifier"]["random_state"],
+            warm_start=data["PassiveAggressiveClassifier"]["warm_start"],
+            class_weight=data["PassiveAggressiveClassifier"]["class_weight"],
+            average=data["PassiveAggressiveClassifier"]["average"]
         )
     )
     classifiers.append(
         KNeighborsClassifier(
-            data["KNeighborsClassifier"]["n_neighbors"],
-            data["KNeighborsClassifier"]["weights"],
-            data["KNeighborsClassifier"]["algorithm"],
-            data["KNeighborsClassifier"]["leaf_size"],
-            data["KNeighborsClassifier"]["p"],
-            data["KNeighborsClassifier"]["metric"],
-            data["KNeighborsClassifier"]["metric_params"],
-            data["KNeighborsClassifier"]["n_jobs"]
+            n_neighbors=data["KNeighborsClassifier"]["n_neighbors"],
+            weights=data["KNeighborsClassifier"]["weights"],
+            algorithm=data["KNeighborsClassifier"]["algorithm"],
+            leaf_size=data["KNeighborsClassifier"]["leaf_size"],
+            p=data["KNeighborsClassifier"]["p"],
+            metric=data["KNeighborsClassifier"]["metric"],
+            metric_params=data["KNeighborsClassifier"]["metric_params"],
+            n_jobs=data["KNeighborsClassifier"]["n_jobs"]
         )
     )
     classifiers.append(
         ExtraTreesClassifier(
-            data["ExtraTreesClassifier"]["n_estimators"],
-            data["ExtraTreesClassifier"]["criterion"],
-            data["ExtraTreesClassifier"]["max_depth"],
-            data["ExtraTreesClassifier"]["min_samples_split"],
-            data["ExtraTreesClassifier"]["min_samples_leaf"],
-            data["ExtraTreesClassifier"]["min_weight_fraction_leaf"],
-            data["ExtraTreesClassifier"]["max_features"],
-            data["ExtraTreesClassifier"]["max_leaf_nodes"],
-            data["ExtraTreesClassifier"]["min_impurity_decrease"],
-            data["ExtraTreesClassifier"]["min_impurity_split"],
-            data["ExtraTreesClassifier"]["bootstrap"],
-            data["ExtraTreesClassifier"]["oob_score"],
-            data["ExtraTreesClassifier"]["n_jobs"],
-            data["ExtraTreesClassifier"]["random_state"],
-            data["ExtraTreesClassifier"]["verbose"],
-            data["ExtraTreesClassifier"]["warm_start"],
-            data["ExtraTreesClassifier"]["class_weight"],
-            data["ExtraTreesClassifier"]["ccp_alpha"],
-            data["ExtraTreesClassifier"]["max_samples"]
+            n_estimators=data["ExtraTreesClassifier"]["n_estimators"],
+            criterion=data["ExtraTreesClassifier"]["criterion"],
+            max_depth=data["ExtraTreesClassifier"]["max_depth"],
+            min_samples_split=data["ExtraTreesClassifier"]["min_samples_split"],
+            min_samples_leaf=data["ExtraTreesClassifier"]["min_samples_leaf"],
+            min_weight_fraction_leaf=data["ExtraTreesClassifier"]["min_weight_fraction_leaf"],
+            max_features=data["ExtraTreesClassifier"]["max_features"],
+            max_leaf_nodes=data["ExtraTreesClassifier"]["max_leaf_nodes"],
+            min_impurity_decrease=data["ExtraTreesClassifier"]["min_impurity_decrease"],
+            min_impurity_split=data["ExtraTreesClassifier"]["min_impurity_split"],
+            bootstrap=data["ExtraTreesClassifier"]["bootstrap"],
+            oob_score=data["ExtraTreesClassifier"]["oob_score"],
+            n_jobs=data["ExtraTreesClassifier"]["n_jobs"],
+            random_state=data["ExtraTreesClassifier"]["random_state"],
+            verbose=data["ExtraTreesClassifier"]["verbose"],
+            warm_start=data["ExtraTreesClassifier"]["warm_start"],
+            class_weight=data["ExtraTreesClassifier"]["class_weight"],
+            ccp_alpha=data["ExtraTreesClassifier"]["ccp_alpha"],
+            max_samples=data["ExtraTreesClassifier"]["max_samples"]
         )
     )
     classifiers.append(
         GaussianNB(
-            data["GaussianNB"]["priors"],
-            data["GaussianNB"]["var_smoothing"]
+            priors=data["GaussianNB"]["priors"],
+            var_smoothing=data["GaussianNB"]["var_smoothing"]
         )
     )
     classifiers.append(
         AdaBoostClassifier(
-            data["AdaBoostClassifier"]["base_estimator"],
-            data["AdaBoostClassifier"]["n_estimators"],
-            data["AdaBoostClassifier"]["learning_rate"],
-            data["AdaBoostClassifier"]["algorithm"],
-            data["AdaBoostClassifier"]["random_state"]
+            base_estimator=data["AdaBoostClassifier"]["base_estimator"],
+            n_estimators=data["AdaBoostClassifier"]["n_estimators"],
+            learning_rate=data["AdaBoostClassifier"]["learning_rate"],
+            algorithm=data["AdaBoostClassifier"]["algorithm"],
+            random_state=data["AdaBoostClassifier"]["random_state"]
         )
     )
     classifiers.append(
         GaussianProcessClassifier(
-            data["GaussianProcessClassifier"]["kernel"],
-            data["GaussianProcessClassifier"]["optimizer"],
-            data["GaussianProcessClassifier"]["n_restarts_optimizer"],
-            data["GaussianProcessClassifier"]["max_iter_predict"],
-            data["GaussianProcessClassifier"]["warm_start"],
-            data["GaussianProcessClassifier"]["copy_X_train"],
-            data["GaussianProcessClassifier"]["random_state"],
-            data["GaussianProcessClassifier"]["multi_class"],
-            data["GaussianProcessClassifier"]["n_jobs"]
+            kernel=data["GaussianProcessClassifier"]["kernel"],
+            optimizer=data["GaussianProcessClassifier"]["optimizer"],
+            n_restarts_optimizer=data["GaussianProcessClassifier"]["n_restarts_optimizer"],
+            max_iter_predict=data["GaussianProcessClassifier"]["max_iter_predict"],
+            warm_start=data["GaussianProcessClassifier"]["warm_start"],
+            copy_X_train=data["GaussianProcessClassifier"]["copy_X_train"],
+            random_state=data["GaussianProcessClassifier"]["random_state"],
+            multi_class=data["GaussianProcessClassifier"]["multi_class"],
+            n_jobs=data["GaussianProcessClassifier"]["n_jobs"]
         )
     )
     classifiers.append(
         DecisionTreeClassifier(
-            data["DecisionTreeClassifier"]["criterion"],
-            data["DecisionTreeClassifier"]["splitter"],
-            data["DecisionTreeClassifier"]["max_depth"],
-            data["DecisionTreeClassifier"]["min_samples_split"],
-            data["DecisionTreeClassifier"]["min_samples_leaf"],
-            data["DecisionTreeClassifier"]["min_weight_fraction_leaf"],
-            data["DecisionTreeClassifier"]["max_features"],
-            data["DecisionTreeClassifier"]["random_state"],
-            data["DecisionTreeClassifier"]["max_leaf_nodes"],
-            data["DecisionTreeClassifier"]["min_impurity_decrease"],
-            data["DecisionTreeClassifier"]["min_impurity_split"],
-            data["DecisionTreeClassifier"]["class_weight"],
-            data["DecisionTreeClassifier"]["ccp_alpha"]
+            criterion=data["DecisionTreeClassifier"]["criterion"],
+            splitter=data["DecisionTreeClassifier"]["splitter"],
+            max_depth=data["DecisionTreeClassifier"]["max_depth"],
+            min_samples_split=data["DecisionTreeClassifier"]["min_samples_split"],
+            min_samples_leaf=data["DecisionTreeClassifier"]["min_samples_leaf"],
+            min_weight_fraction_leaf=data["DecisionTreeClassifier"]["min_weight_fraction_leaf"],
+            max_features=data["DecisionTreeClassifier"]["max_features"],
+            random_state=data["DecisionTreeClassifier"]["random_state"],
+            max_leaf_nodes=data["DecisionTreeClassifier"]["max_leaf_nodes"],
+            min_impurity_decrease=data["DecisionTreeClassifier"]["min_impurity_decrease"],
+            min_impurity_split=data["DecisionTreeClassifier"]["min_impurity_split"],
+            class_weight=data["DecisionTreeClassifier"]["class_weight"],
+            ccp_alpha=data["DecisionTreeClassifier"]["ccp_alpha"]
         )
     )
     classifiers.append(
         RandomForestClassifier(
-            data["RandomForestClassifier"]["n_estimators"],
-            data["RandomForestClassifier"]["criterion"],
-            data["RandomForestClassifier"]["max_depth"],
-            data["RandomForestClassifier"]["min_samples_split"],
-            data["RandomForestClassifier"]["min_samples_leaf"],
-            data["RandomForestClassifier"]["min_weight_fraction_leaf"],
-            data["RandomForestClassifier"]["max_features"],
-            data["RandomForestClassifier"]["max_leaf_nodes"],
-            data["RandomForestClassifier"]["min_impurity_decrease"],
-            data["RandomForestClassifier"]["min_impurity_split"],
-            data["RandomForestClassifier"]["bootstrap"],
-            data["RandomForestClassifier"]["oob_score"],
-            data["RandomForestClassifier"]["n_jobs"],
-            data["RandomForestClassifier"]["random_state"],
-            data["RandomForestClassifier"]["verbose"],
-            data["RandomForestClassifier"]["warm_start"],
-            data["RandomForestClassifier"]["class_weight"],
-            data["RandomForestClassifier"]["ccp_alpha"],
-            data["RandomForestClassifier"]["max_samples"]
+            n_estimators=data["RandomForestClassifier"]["n_estimators"],
+            criterion=data["RandomForestClassifier"]["criterion"],
+            max_depth=data["RandomForestClassifier"]["max_depth"],
+            min_samples_split=data["RandomForestClassifier"]["min_samples_split"],
+            min_samples_leaf=data["RandomForestClassifier"]["min_samples_leaf"],
+            min_weight_fraction_leaf=data["RandomForestClassifier"]["min_weight_fraction_leaf"],
+            max_features=data["RandomForestClassifier"]["max_features"],
+            max_leaf_nodes=data["RandomForestClassifier"]["max_leaf_nodes"],
+            min_impurity_decrease=data["RandomForestClassifier"]["min_impurity_decrease"],
+            min_impurity_split=data["RandomForestClassifier"]["min_impurity_split"],
+            bootstrap=data["RandomForestClassifier"]["bootstrap"],
+            oob_score=data["RandomForestClassifier"]["oob_score"],
+            n_jobs=data["RandomForestClassifier"]["n_jobs"],
+            random_state=data["RandomForestClassifier"]["random_state"],
+            verbose=data["RandomForestClassifier"]["verbose"],
+            warm_start=data["RandomForestClassifier"]["warm_start"],
+            class_weight=data["RandomForestClassifier"]["class_weight"],
+            ccp_alpha=data["RandomForestClassifier"]["ccp_alpha"],
+            max_samples=data["RandomForestClassifier"]["max_samples"]
         )
     )
     classifiers.append(
         MLPClassifier(
-            data["MLPClassifier"]["hidden_layer_sizes"],
-            data["MLPClassifier"]["activation"],
-            data["MLPClassifier"]["solver"],
-            data["MLPClassifier"]["alpha"],
-            data["MLPClassifier"]["batch_size"],
-            data["MLPClassifier"]["learning_rate"],
-            data["MLPClassifier"]["learning_rate_init"],
-            data["MLPClassifier"]["power_t"],
-            data["MLPClassifier"]["max_iter"],
-            data["MLPClassifier"]["shuffle"],
-            data["MLPClassifier"]["random_state"],
-            data["MLPClassifier"]["tol"],
-            data["MLPClassifier"]["verbose"],
-            data["MLPClassifier"]["warm_start"],
-            data["MLPClassifier"]["momentum"],
-            data["MLPClassifier"]["nesterovs_momentum"],
-            data["MLPClassifier"]["early_stopping"],
-            data["MLPClassifier"]["validation_fraction"],
-            data["MLPClassifier"]["beta_1"],
-            data["MLPClassifier"]["beta_2"],
-            data["MLPClassifier"]["epsilon"],
-            data["MLPClassifier"]["n_iter_no_change"],
-            data["MLPClassifier"]["max_fun"]
+            hidden_layer_sizes=data["MLPClassifier"]["hidden_layer_sizes"],
+            activation=data["MLPClassifier"]["activation"],
+            solver=data["MLPClassifier"]["solver"],
+            alpha=data["MLPClassifier"]["alpha"],
+            batch_size=data["MLPClassifier"]["batch_size"],
+            learning_rate=data["MLPClassifier"]["learning_rate"],
+            learning_rate_init=data["MLPClassifier"]["learning_rate_init"],
+            power_t=data["MLPClassifier"]["power_t"],
+            max_iter=data["MLPClassifier"]["max_iter"],
+            shuffle=data["MLPClassifier"]["shuffle"],
+            random_state=data["MLPClassifier"]["random_state"],
+            tol=data["MLPClassifier"]["tol"],
+            verbose=data["MLPClassifier"]["verbose"],
+            warm_start=data["MLPClassifier"]["warm_start"],
+            momentum=data["MLPClassifier"]["momentum"],
+            nesterovs_momentum=data["MLPClassifier"]["nesterovs_momentum"],
+            early_stopping=data["MLPClassifier"]["early_stopping"],
+            validation_fraction=data["MLPClassifier"]["validation_fraction"],
+            beta_1=data["MLPClassifier"]["beta_1"],
+            beta_2=data["MLPClassifier"]["beta_2"],
+            epsilon=data["MLPClassifier"]["epsilon"],
+            n_iter_no_change=data["MLPClassifier"]["n_iter_no_change"],
+            max_fun=data["MLPClassifier"]["max_fun"]
         )
     )
 

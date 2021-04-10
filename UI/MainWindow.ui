@@ -824,47 +824,96 @@
      <attribute name="title">
       <string>База знаний</string>
      </attribute>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QComboBox" name="class_selector">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>20</y>
-        <width>121</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Импорт из CSV</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_4">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>20</y>
-        <width>121</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Экспорт в CSV</string>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="comboBox">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>70</y>
+        <y>30</y>
         <width>251</width>
         <height>22</height>
        </rect>
       </property>
+      <item>
+       <property name="text">
+        <string>All</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Basophil</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Blasts</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Eosinophil</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Lymphoblast</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Lymphocyte</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Megakaryocyte</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Metamyelocyte</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Monocyte</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Myelocyte</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Normoblasts</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Plasma cell</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Promyelocyte</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Rod-shaped neutrophil</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Segmented neutrophil</string>
+       </property>
+      </item>
      </widget>
      <widget class="QLabel" name="label_21">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>50</y>
+        <y>10</y>
         <width>47</width>
         <height>13</height>
        </rect>
@@ -873,40 +922,30 @@
        <string>Класс</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_22">
+     <widget class="QLabel" name="cell">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>100</y>
-        <width>47</width>
-        <height>13</height>
+        <x>290</x>
+        <y>340</y>
+        <width>381</width>
+        <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>Клетка</string>
+       <string>Клетка:</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox_2">
+     <widget class="QTableWidget" name="sings_table">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>120</y>
-        <width>251</width>
-        <height>22</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QTableWidget" name="tableWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>160</y>
+        <y>60</y>
         <width>256</width>
-        <height>771</height>
+        <height>871</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="label_23">
+     <widget class="QLabel" name="image_cell">
       <property name="geometry">
        <rect>
         <x>290</x>
@@ -922,11 +961,11 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_5">
+     <widget class="QPushButton" name="prev_cell">
       <property name="geometry">
        <rect>
-        <x>300</x>
-        <y>360</y>
+        <x>290</x>
+        <y>380</y>
         <width>75</width>
         <height>23</height>
        </rect>
@@ -935,17 +974,30 @@
        <string>Назад</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_6">
+     <widget class="QPushButton" name="next_cell">
       <property name="geometry">
        <rect>
-        <x>410</x>
-        <y>360</y>
+        <x>400</x>
+        <y>380</y>
         <width>75</width>
         <height>23</height>
        </rect>
       </property>
       <property name="text">
        <string>Далее</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="cell_class">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>360</y>
+        <width>381</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Класс:</string>
       </property>
      </widget>
     </widget>

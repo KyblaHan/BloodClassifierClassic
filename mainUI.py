@@ -10,7 +10,8 @@ import classifier
 import data_prep
 import neiron
 from UI.MainWindow import Ui_MainWindow  # импорт нашего сгенерированного файла
-
+import sklearn.utils._weight_vector
+import ProjectData
 
 class mywindow(QtWidgets.QMainWindow):
     X = []

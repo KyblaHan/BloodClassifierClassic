@@ -60,5 +60,6 @@ def sings_append(file):
     cursor.executemany("insert into Sings values  (?, ?, ?, ?);", input_db)
     conn.commit()
 
+
 # sings_append("ProjectData/Data/all_append_.csv")
 conn.close()

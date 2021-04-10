@@ -12,6 +12,7 @@ pip install pyinstaller
 pip install pathlib
 
 Сборка экзешника:
+    0. Если ранее осуществлялась сборка, удалить dist/mainUI
     1. Выполниь команду: pyinstaller mainUi.py
     2. Скопировать ProjectData в dist/mainUI
     3. Готовый экзешник: dist/mainUI/mainUI.exe
