@@ -1,32 +1,28 @@
+import datetime
 import json
+import pickle
 import timeit
+from collections import Counter
 import pandas as pd
-from sklearn.dummy import DummyClassifier
-from sklearn.gaussian_process import GaussianProcessClassifier
-from sklearn.multiclass import OneVsOneClassifier, OutputCodeClassifier, OneVsRestClassifier
-from sklearn.multioutput import MultiOutputClassifier, ClassifierChain
-from sklearn.preprocessing import StandardScaler
-from sklearn import preprocessing
-from sklearn.ensemble import ExtraTreesClassifier, AdaBoostClassifier, RandomForestClassifier, BaggingClassifier, \
-    GradientBoostingClassifier, VotingClassifier, StackingClassifier
-from sklearn.svm import SVC, NuSVC, LinearSVC
 from sklearn import metrics
-from sklearn.linear_model import LogisticRegression, LinearRegression, Ridge, RidgeCV, RidgeClassifier, \
-    TweedieRegressor, SGDClassifier, PassiveAggressiveClassifier, RidgeClassifierCV
+from sklearn import preprocessing
+from sklearn.dummy import DummyClassifier
+from sklearn.ensemble import ExtraTreesClassifier, AdaBoostClassifier, RandomForestClassifier, BaggingClassifier, \
+    GradientBoostingClassifier
+from sklearn.gaussian_process import GaussianProcessClassifier
+from sklearn.linear_model import LogisticRegression, RidgeClassifier, \
+    SGDClassifier, PassiveAggressiveClassifier, RidgeClassifierCV
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier, RadiusNeighborsClassifier
-from collections import Counter
-# from joblib import dump, load
-import pickle
-import joblib
-import datetime
-
 from sklearn.neural_network import MLPClassifier
-import sklearn.utils._weight_vector
-
+from sklearn.svm import SVC, LinearSVC
 # Перечень доступных моделей в Системе
 from sklearn.tree import DecisionTreeClassifier
 
+
+"""
+classifiers - перечень всех классификаторов.
+"""
 classifiers = [
     # RadiusNeighborsClassifier(),
     # RidgeClassifierCV(),
@@ -49,6 +45,11 @@ classifiers = [
 
 
 def load_params():
+    """
+    Загружает информацию о клаасификаторах из json файла: ProjectData/SystemFiles/params.json
+    :return:
+    """
+
     with open("ProjectData/SystemFiles/params.json") as json_file:
         data = json.load(json_file)
     classifiers.append(
@@ -368,6 +369,12 @@ def load_params():
 
 # генератор имен файлов
 def generate_save_name(classifier, preprocess_method):
+    """
+    Функция для генерации названия сохранения для весов.
+    :param classifier: используемый классификатор
+    :param preprocess_method: используемый метод предобработки
+    :return: строка с названием файла
+    """
     classifier = str(classifier)
     name = "ProjectData/Weights/Classic/"
     file_format = ".pkl"
@@ -377,23 +384,30 @@ def generate_save_name(classifier, preprocess_method):
     return name
 
 
-# preprocess_method - способ подготовки данных. 1 - нормализация; 2 - стандартизация
+
 def load_and_preprocess_data(path_to_data, preprocess_method):
+    """
+    Функция загрузки данных из csv, также выполняет предобработку.
+    :param path_to_data: путь к csv
+    :param preprocess_method: метод предобработки, сейчас всегда нормализация.
+    :return: (X,y), где X - данные, y - лейблы
+    """
     data = pd.read_csv(path_to_data, sep=';', thousands=",", low_memory=False)
     del data["path_to_cell"]
-
-    # Вытаскиваем данные
     X = data.iloc[:, 1:]
-    # Вытаскиваем лейблы
     y = data["Label"]
-
     X = preprocessing.normalize(X)
 
     return (X, y)
 
 
-# функция считывания количества данных по каждому классу в файле
+
 def get_load_file_stats(y):
+    """
+    Функция подсчета классов их чостоты в файле.
+    :param y: Лист с лейблами
+    :return: Лист в формате: (название класса, количество)
+    """
     stats = Counter(y)
     # print(len(stats))
     stats = pd.DataFrame.from_dict(stats, orient='index').reset_index()
@@ -405,8 +419,16 @@ def get_load_file_stats(y):
     return stats_list
 
 
-# функция обучения классификаторов
+
 def control_classifiers(X, y, num_classifier, preprocess_method):
+    """
+    Функция обучения классификаторов
+    :param X: данные
+    :param y: лейблы
+    :param num_classifier: номер классификатора
+    :param preprocess_method: способ предобработки
+    :return: (expected, predicted) - данные по обученной модели
+    """
     model = classifiers[num_classifier]
     model.fit(X, y)
     expected = y
@@ -421,6 +443,13 @@ def control_classifiers(X, y, num_classifier, preprocess_method):
 
 
 def test_model(X, y, path):
+    """
+    Функция тестирования моделей
+    :param X: данные
+    :param y: лейблы
+    :param path: путь к весам,для загрузки модели
+    :return: (expected, predicted) - данные по тестированию модели
+    """
     # model = classifiers[4]
     # path = path+".pkl"
     with open("test.pkl", 'rb') as file:
@@ -441,6 +470,13 @@ def test_model(X, y, path):
 # print(a)
 
 def get_best_x(X, y, best=-1):
+    """
+    Эксперементальная функция поиска лучших X
+    :param X: данные
+    :param y: лейблы
+    :param best: Лучшие параметры, передавать массив если уже известны индексы лучших
+    :return: X, best. X - очищенные данные, best - индексы лучших параметров
+    """
     if best == -1:
         clf = RandomForestClassifier()
         clf.fit(X, y)
@@ -460,10 +496,16 @@ def get_best_x(X, y, best=-1):
 
 
 def get_all_stats(path_train, path_test):
+    """
+    Функция прогона по всем классификаторам,вывод в консоль
+    :param path_train: путь к обучающей выборке csv-файлу
+    :param path_test: путь к тестовой выборке csv-файлу
+    :return:
+    """
     list_acc = []
     for m in classifiers:
         X, y = load_and_preprocess_data(path_train, 1)
-        X, best = get_best_x(X, y)
+        # X, best = get_best_x(X, y)
         print("Обучение и тестирование: ", m)
         model = m
         a = timeit.default_timer()
@@ -479,7 +521,7 @@ def get_all_stats(path_train, path_test):
         print("Точность: ", acc_train)
 
         X, y = load_and_preprocess_data(path_test, 1)
-        X = get_best_x(X, y, best)
+        # X = get_best_x(X, y, best)
 
         print("Показатели на тестовых данных: ")
 
@@ -499,6 +541,11 @@ def get_all_stats(path_train, path_test):
 
 
 def generate_test_report(path_to_data):
+    """
+    Генератор отчета по тестированию в разрезе каждого объекта, сохраняет csv-файл: ProjectData/OutputData/test_report.csv
+    :param path_to_data: путь к тестовой выборке csv-файлу
+    :return:
+    """
     output_data = []
 
     data = pd.read_csv(path_to_data, sep=';', thousands=",", low_memory=False)

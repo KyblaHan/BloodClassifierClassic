@@ -1,8 +1,8 @@
 import math
 import pathlib
 import random
+
 from PIL import Image
-import sys
 
 TEST_FOLDER = "test"
 TRAIN_FOLDER = "train"

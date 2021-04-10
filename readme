@@ -10,3 +10,13 @@ pip install pandas
 pip install Pillow
 pip install pyinstaller
 pip install pathlib
+
+Сборка экзешника:
+    1. Выполниь команду: pyinstaller mainUi.py
+    2. Скопировать ProjectData в dist/mainUI
+    3. Готовый экзешник: dist/mainUI/mainUI.exe
+    4. В папке dist/mainUI - находятся все необходимые библиотеки
+
+Конвертация ui в py:
+    pyuic5 UI/MainWindow.ui -o UI/MainWindow.py
+

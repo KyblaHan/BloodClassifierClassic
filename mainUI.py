@@ -1,19 +1,15 @@
 # В данном файле описано управление основным интерфейсом программы и связи с остальными функцциями
+import os
 import pathlib
-
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QMessageBox
-import PyQt5.QtCore
-
-from UI.MainWindow import Ui_MainWindow  # импорт нашего сгенерированного файла
 import sys
+import PyQt5.QtCore
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem
+from sklearn import metrics
 import classifier
 import data_prep
-from sklearn import metrics
-import os
 import neiron
-
-# pyuic5 UI/MainWindow.ui -o UI/MainWindow.py
+from UI.MainWindow import Ui_MainWindow  # импорт нашего сгенерированного файла
 
 
 class mywindow(QtWidgets.QMainWindow):
