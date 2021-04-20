@@ -57,6 +57,8 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.btn_start_neiron_train.clicked.connect(self.btn_start_neiron_train_clicked)
         self.ui.btn_neiron_test.clicked.connect(self.btn_neiron_test_clicked)
         self.ui.btn_neiron_additional_train.clicked.connect(self.btn_neiron_additional_train_clicked)
+        # ===5=======================================================
+
 
     # ====Управление первой вкладкой====================================================
     def btn_open_path_to_data_clicked(self):
@@ -151,9 +153,12 @@ class mywindow(QtWidgets.QMainWindow):
 
     def set_preprocess_type_test(self):
         type = self.ui.selector_model.currentText().split("_")
-        type = type[len(type)-2]
+        type = type[1]
+        type = type.split(".")
+        type = type[0]
 
-        if type ==  "Стандартизация":
+        print(type)
+        if type == "Стандартизация":
             self.ui.preprocess_type_test.setCurrentIndex(0)
             self.ui.preprocess_type_test.setEnabled(False)
 
@@ -200,6 +205,7 @@ class mywindow(QtWidgets.QMainWindow):
                 col += 1
             row += 1
     def btn_test_clicked(self):
+
         expected, predicted = classifier.test_model(self.X, self.y, self.ui.selector_model.currentText())
         classifier.generate_test_report(self.ui.path_to_test_data.text())
         self.ui.label_20.setText(metrics.classification_report(expected, predicted,zero_division=0))
