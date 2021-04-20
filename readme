@@ -21,3 +21,7 @@ pip install pathlib
 Конвертация ui в py:
     pyuic5 UI/MainWindow.ui -o UI/MainWindow.py
 
+Настройки классификаторов:
+    ProjectData/SystemFiles/params.json
+
+

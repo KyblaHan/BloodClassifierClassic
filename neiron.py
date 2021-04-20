@@ -7,6 +7,9 @@ import random
 import shutil
 import cv2
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot  as plt
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 BATCH_SIZE = 32
@@ -105,7 +108,7 @@ def initiate_model(PATH_TO_DATA):
         tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(64, activation='relu'),
-        tf.keras.layers.Dense(len(get_label_names(PATH_TO_DATA)), activation='softmax')])
+        tf.keras.layers.Dense(14, activation='softmax')])
     return model
 
 
@@ -149,7 +152,8 @@ def start_train(path, use_gpu, epochs):
 
 def test_model(path, use_gpu, path_to_weights):
     activate_gpu(use_gpu)
-
+    count = len(list(pathlib.Path(path).glob('*/*')))
+    TEST_STEPS = count
     ds_test = initiate_dataset(path)
     # print("!!")
     ds = ds_test.shuffle(buffer_size=count_images(path))
@@ -169,6 +173,7 @@ def test_model(path, use_gpu, path_to_weights):
     # print("Анализ точности модели")
     test_loss, test_acc = model.evaluate(ds, verbose=1, steps=TEST_STEPS)
     print('\nТочность на проверочных данных:', test_acc)
+    return test_acc
 
 
 def test_model_one_class(path, use_gpu, path_to_weights):
@@ -180,6 +185,16 @@ def test_model_one_class(path, use_gpu, path_to_weights):
 
     output_data = []
     for x in paths:
+
+        count = len(list(pathlib.Path(x).glob('*')))
+        print(count)
+        if count >= 100:
+            TEST_STEPS = 100
+        else:
+            TEST_STEPS = count
+
+        TEST_STEPS = count
+
         ds_test = initiate_dataset_one_class(str(x))
         # print("!!")
         ds = ds_test.shuffle(buffer_size=count_images(path))
@@ -198,8 +213,9 @@ def test_model_one_class(path, use_gpu, path_to_weights):
         model.load_weights(path_to_weights)
         # print("Анализ точности модели")
         test_loss, test_acc = model.evaluate(ds, verbose=1, steps=TEST_STEPS)
-        output_data.append((os.path.basename(x),test_acc))
+        output_data.append((os.path.basename(x), test_acc))
     print(output_data)
+    return output_data
 
 
 def additional_train(path, use_gpu, epochs, path_to_weights):
@@ -236,8 +252,105 @@ def additional_train(path, use_gpu, epochs, path_to_weights):
     print("обучение завершенно")
 
 
-def train_and_test(path_to_train, path_to_test, use_gpu, epochs, train_steps, test_every_epoch):
+def train_and_test(path_to_train, path_to_test, use_gpu, epochs, test_every_epoch="short"):
+    """
+    Генерация отчетов в разрезе каждой из эпох
+
+    :param path_to_train:
+    :param path_to_test:
+    :param use_gpu:
+    :param epochs:
+    :param test_every_epoch: full - отчеты  cells+short,cells - точность в разрезе каждого класса, short - генереруется отчет по общей точности
+    :return:
+    """
     activate_gpu(use_gpu)
+    cells_report = []
+    short_report = []
+    for i in range(1, epochs, 1):
+        start_train(path_to_train, True, i)
+
+        if test_every_epoch == "full" or test_every_epoch == "cells":
+            train_data = test_model_one_class(path_to_train, True,
+                                              "ProjectData//Weights/Neiron//cp.ckpt")
+            test_data = test_model_one_class(path_to_test, True,
+                                             "ProjectData//Weights/Neiron//cp.ckpt")
+            cells_report.append(get_values(i, "train", train_data))
+            cells_report.append(get_values(i, "test", test_data))
+            df = pd.DataFrame(cells_report,
+                              columns=["epoch", "type", 'Basophil', 'Blasts', 'Eosinophil', 'Lymphoblast', 'Lymphocyte',
+                                       'Megakaryocyte', 'Metamyelocyte', 'Monocyte', 'Myelocyte', 'Normoblasts',
+                                       'Plasma cell',
+                                       'Promyelocyte', 'Rod-shaped neutrophil', 'Segmented neutrophil'])
+            df.to_csv(r"ProjectData/OutputData/Neiron/tensor_cells_report_" + str(i) + ".csv")
+
+        if test_every_epoch == "full" or test_every_epoch == "short":
+            train_data = test_model(path_to_train, True,
+                                              "ProjectData//Weights/Neiron//cp.ckpt")
+            test_data = test_model(path_to_test, True,
+                                             "ProjectData//Weights/Neiron//cp.ckpt")
+            short_report.append((i, "train", train_data))
+            short_report.append((i, "test", test_data))
+            df = pd.DataFrame(short_report,
+                              columns=["epoch", "type", 'acc'])
+            df.to_csv(r"ProjectData/OutputData/Neiron/tensor_short_report" + str(i) + ".csv")
+
+
+    if test_every_epoch == "full" or test_every_epoch == "cells":
+        df = pd.DataFrame(cells_report,
+                          columns=["epoch", "type", 'Basophil', 'Blasts', 'Eosinophil', 'Lymphoblast', 'Lymphocyte',
+                                   'Megakaryocyte', 'Metamyelocyte', 'Monocyte', 'Myelocyte', 'Normoblasts', 'Plasma cell',
+                                   'Promyelocyte', 'Rod-shaped neutrophil', 'Segmented neutrophil'])
+        df.to_csv(r"ProjectData/OutputData/Neiron/tensor_cells_report.csv")
+    if test_every_epoch == "full" or test_every_epoch == "short":
+        df = pd.DataFrame(short_report,
+                          columns=["epoch", "type", 'acc'])
+        df.to_csv(r"ProjectData/OutputData/Neiron/tensor_short_report.csv")
+
+
+
+
 # initiate_dataset_one_class(r"C:\_Programming\_DataSets\Multiclass\png_devided_data\test\Myelocyte")
 # test_model_one_class(r"C:\_Programming\_DataSets\Two class\png_devided_data\test", True, "ProjectData//Weights/Neiron//cp.ckpt")
 # test_model(r"C:\_Programming\_DataSets\Multiclass\png_devided_data\test",True,"ProjectData//Weights/Neiron//cp.ckpt")
+
+
+# start_train(r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\train", True,1)
+
+def get_values(epoch, data_type, data_list):
+    output_list = []
+    output_list.append(epoch)
+    output_list.append(data_type)
+    for d in data_list:
+        output_list.append(d[1])
+    return output_list
+
+
+def train_and_test_no_control():
+    data_list = []
+    for i in range(56, 100, 1):
+        start_train(r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\train", True, i)
+        train_data = test_model_one_class(r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\train", True,
+                                          "ProjectData//Weights/Neiron//cp.ckpt")
+        test_data = test_model_one_class(r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\test", True,
+                                         "ProjectData//Weights/Neiron//cp.ckpt")
+
+        data_list.append(get_values(i, "train", train_data))
+        data_list.append(get_values(i, "test", test_data))
+        df = pd.DataFrame(data_list,
+                          columns=["epoch", "type", 'Basophil', 'Blasts', 'Eosinophil', 'Lymphoblast', 'Lymphocyte',
+                                   'Megakaryocyte', 'Metamyelocyte', 'Monocyte', 'Myelocyte', 'Normoblasts',
+                                   'Plasma cell',
+                                   'Promyelocyte', 'Rod-shaped neutrophil', 'Segmented neutrophil'])
+        df.to_csv(r"ProjectData/OutputData/tensor_report_" + str(i) + ".csv")
+
+
+
+    df = pd.DataFrame(data_list,
+                      columns=["epoch", "type", 'Basophil', 'Blasts', 'Eosinophil', 'Lymphoblast', 'Lymphocyte',
+                               'Megakaryocyte', 'Metamyelocyte', 'Monocyte', 'Myelocyte', 'Normoblasts', 'Plasma cell',
+                               'Promyelocyte', 'Rod-shaped neutrophil', 'Segmented neutrophil'])
+    df.to_csv(r"ProjectData/OutputData/tensor_report.csv")
+
+
+
+train_and_test(r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\train", r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\test", True, 30)

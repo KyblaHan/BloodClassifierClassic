@@ -1,5 +1,6 @@
 from peewee import *
 import pandas as pd
+from collections import Counter
 
 
 class UnknownField(object):
@@ -52,7 +53,7 @@ class Sings(BaseModel):
 def get_data():
     """
     Выгружает данные из БД в DataFrame
-    :return: DataFrame - ["path", "CellType", "Sing", "Value"]
+    :return: DataFrame
     """
     database = SqliteDatabase('ProjectData/SystemFiles/knowledge_base.db')
     cursor = database.cursor()
@@ -64,3 +65,23 @@ def get_data():
     return df
 
 
+def reformat_data(df, up):
+    sing_list = list(df["Sing"])
+    header = ["path", "CellType"]
+    for sv in sing_list:
+        header.append(sv)
+    print(up)
+    new_df = df[df["path"] == up]
+    path = up
+    cell_type = new_df["CellType"].iloc(0)
+    sing_values = list(new_df["Value"])
+    temp = [path, cell_type]
+    for sv in sing_values:
+        temp.append(sv)
+
+    return temp
+
+
+df = get_data()
+df = reformat_data(df, r"C:\_Programming\_DataSets\Multiclass\IshodDataAppend\Blasts\1 (11824).bmp")
+print(df)

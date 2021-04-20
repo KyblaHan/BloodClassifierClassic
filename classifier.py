@@ -378,25 +378,30 @@ def generate_save_name(classifier, preprocess_method):
     classifier = str(classifier)
     name = "ProjectData/Weights/Classic/"
     file_format = ".pkl"
-    now = datetime.datetime.now()
-    name = name + classifier + "_" + str(preprocess_method) + "_" + str(now.strftime("%d-%m-%Y %H:%M")) + file_format
+
+    name = name + classifier + "_" + str(preprocess_method) + file_format
 
     return name
 
 
 
-def load_and_preprocess_data(path_to_data, preprocess_method):
+def load_and_preprocess_data(path_to_data, preprocess_method=1):
     """
     Функция загрузки данных из csv, также выполняет предобработку.
     :param path_to_data: путь к csv
-    :param preprocess_method: метод предобработки, сейчас всегда нормализация.
+    :param preprocess_method: метод предобработки, 1 - нормализация. при ошибках(по умолчанию нормализация)
     :return: (X,y), где X - данные, y - лейблы
     """
     data = pd.read_csv(path_to_data, sep=';', thousands=",", low_memory=False)
     del data["path_to_cell"]
     X = data.iloc[:, 1:]
     y = data["Label"]
-    X = preprocessing.normalize(X)
+    if preprocess_method == 1:
+     X = preprocessing.normalize(X)
+    elif preprocess_method == 2:
+        X = preprocessing.StandardScaler().fit(X)
+    else:
+        X = preprocessing.normalize(X)
 
     return (X, y)
 
@@ -418,8 +423,6 @@ def get_load_file_stats(y):
 
     return stats_list
 
-
-
 def control_classifiers(X, y, num_classifier, preprocess_method):
     """
     Функция обучения классификаторов
@@ -437,7 +440,7 @@ def control_classifiers(X, y, num_classifier, preprocess_method):
     file_name = generate_save_name(classifiers[num_classifier], preprocess_method)
     print(file_name)
     # joblib.dump(model, file_name)
-    with open("test.pkl", 'wb') as file:
+    with open(file_name, 'wb') as file:
         pickle.dump(model, file)
     return (expected, predicted)
 
@@ -452,7 +455,8 @@ def test_model(X, y, path):
     """
     # model = classifiers[4]
     # path = path+".pkl"
-    with open("test.pkl", 'rb') as file:
+    print(path)
+    with open(path, 'rb') as file:
         model = pickle.load(file)
 
     expected = y
@@ -554,7 +558,7 @@ def generate_test_report(path_to_data):
     X = data.iloc[:, 1:]
     y = data["Label"]
     X = preprocessing.normalize(X)
-    with open("test.pkl", 'rb') as file:
+    with open("ProjectData/Weights/Classic/test.pkl", 'rb') as file:
         model = pickle.load(file)
     expected = y
     predicted = model.predict(X)
