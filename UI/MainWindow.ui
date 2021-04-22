@@ -48,7 +48,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -189,12 +189,12 @@
         <widget class="QComboBox" name="preprocess_type">
          <item>
           <property name="text">
-           <string>Стандартизация</string>
+           <string>Нормализация</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Нормализация</string>
+           <string>Стандартизация</string>
           </property>
          </item>
         </widget>

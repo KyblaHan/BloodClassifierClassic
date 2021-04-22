@@ -8,7 +8,8 @@ import shutil
 import cv2
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot  as plt
+
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 AUTOTUNE = tf.data.experimental.AUTOTUNE
@@ -285,28 +286,26 @@ def train_and_test(path_to_train, path_to_test, use_gpu, epochs, test_every_epoc
 
         if test_every_epoch == "full" or test_every_epoch == "short":
             train_data = test_model(path_to_train, True,
-                                              "ProjectData//Weights/Neiron//cp.ckpt")
+                                    "ProjectData//Weights/Neiron//cp.ckpt")
             test_data = test_model(path_to_test, True,
-                                             "ProjectData//Weights/Neiron//cp.ckpt")
+                                   "ProjectData//Weights/Neiron//cp.ckpt")
             short_report.append((i, "train", train_data))
             short_report.append((i, "test", test_data))
             df = pd.DataFrame(short_report,
                               columns=["epoch", "type", 'acc'])
-            df.to_csv(r"ProjectData/OutputData/Neiron/tensor_short_report" + str(i) + ".csv")
-
+            df.to_csv(r"ProjectData/OutputData/Neiron/tensor_short_report_" + str(i) + ".csv")
 
     if test_every_epoch == "full" or test_every_epoch == "cells":
         df = pd.DataFrame(cells_report,
                           columns=["epoch", "type", 'Basophil', 'Blasts', 'Eosinophil', 'Lymphoblast', 'Lymphocyte',
-                                   'Megakaryocyte', 'Metamyelocyte', 'Monocyte', 'Myelocyte', 'Normoblasts', 'Plasma cell',
+                                   'Megakaryocyte', 'Metamyelocyte', 'Monocyte', 'Myelocyte', 'Normoblasts',
+                                   'Plasma cell',
                                    'Promyelocyte', 'Rod-shaped neutrophil', 'Segmented neutrophil'])
         df.to_csv(r"ProjectData/OutputData/Neiron/tensor_cells_report.csv")
     if test_every_epoch == "full" or test_every_epoch == "short":
         df = pd.DataFrame(short_report,
                           columns=["epoch", "type", 'acc'])
         df.to_csv(r"ProjectData/OutputData/Neiron/tensor_short_report.csv")
-
-
 
 
 # initiate_dataset_one_class(r"C:\_Programming\_DataSets\Multiclass\png_devided_data\test\Myelocyte")
@@ -343,8 +342,6 @@ def train_and_test_no_control():
                                    'Promyelocyte', 'Rod-shaped neutrophil', 'Segmented neutrophil'])
         df.to_csv(r"ProjectData/OutputData/tensor_report_" + str(i) + ".csv")
 
-
-
     df = pd.DataFrame(data_list,
                       columns=["epoch", "type", 'Basophil', 'Blasts', 'Eosinophil', 'Lymphoblast', 'Lymphocyte',
                                'Megakaryocyte', 'Metamyelocyte', 'Monocyte', 'Myelocyte', 'Normoblasts', 'Plasma cell',
@@ -352,5 +349,5 @@ def train_and_test_no_control():
     df.to_csv(r"ProjectData/OutputData/tensor_report.csv")
 
 
-
-train_and_test(r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\train", r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\test", True, 30)
+# train_and_test(r"C:\_Programming\_DataSets\Multiclass\augData\train",
+#                r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\test", True, 10,"full")

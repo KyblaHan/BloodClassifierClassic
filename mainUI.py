@@ -13,6 +13,7 @@ from UI.MainWindow import Ui_MainWindow  # импорт нашего сгене�
 import sklearn.utils._weight_vector
 import ProjectData
 
+
 class mywindow(QtWidgets.QMainWindow):
     X = []
     y = []
@@ -24,7 +25,7 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ui.tabWidget.setCurrentIndex(0)
-        #===init classifiers==============
+        # ===init classifiers==============
         classifier.load_params()
         # ===1==================
         self.ui.btn_select_input_data.clicked.connect(self.btn_select_input_data_clicked)
@@ -58,7 +59,6 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.btn_neiron_test.clicked.connect(self.btn_neiron_test_clicked)
         self.ui.btn_neiron_additional_train.clicked.connect(self.btn_neiron_additional_train_clicked)
         # ===5=======================================================
-
 
     # ====Управление первой вкладкой====================================================
     def btn_open_path_to_data_clicked(self):
@@ -143,13 +143,15 @@ class mywindow(QtWidgets.QMainWindow):
     # ====Управление второй вкладкой=================================================
     def tab_changed(self):
         if self.ui.tabWidget.currentIndex() == 1:
-            path = "ProjectData/Weights/Classic"
+            path = "ProjectData/Weights/Classic/"
             path = pathlib.Path(path)
             all_model_paths = list(path.glob('*'))
-            self.ui.selector_model.clear()
+
+            # self.ui.selector_model.clear()
+
+            # self.ui.selector_model.clear()
             for x in all_model_paths:
                 self.ui.selector_model.addItem(str(x))
-            # selector_model
 
     def set_preprocess_type_test(self):
         type = self.ui.selector_model.currentText().split("_")
@@ -204,11 +206,12 @@ class mywindow(QtWidgets.QMainWindow):
                     self.y_unic.append(item)
                 col += 1
             row += 1
+
     def btn_test_clicked(self):
 
         expected, predicted = classifier.test_model(self.X, self.y, self.ui.selector_model.currentText())
         classifier.generate_test_report(self.ui.path_to_test_data.text())
-        self.ui.label_20.setText(metrics.classification_report(expected, predicted,zero_division=0))
+        self.ui.label_20.setText(metrics.classification_report(expected, predicted, zero_division=0))
         # print(metrics.confusion_matrix(expected, predicted))
         self.load_test_predictions_matrix(metrics.confusion_matrix(expected, predicted))
 
@@ -329,12 +332,14 @@ class mywindow(QtWidgets.QMainWindow):
         neiron.start_train(self.ui.neiron_train_data_path.text(), self.ui.use_gpu.isChecked(), self.ui.epoch.value())
 
     def btn_neiron_test_clicked(self):
-        neiron.test_model(self.ui.neiron_test_data_path.text(),self.ui.use_gpu.isChecked(),"ProjectData//Weights/Neiron//cp.ckpt")
+        neiron.test_model(self.ui.neiron_test_data_path.text(), self.ui.use_gpu.isChecked(),
+                          "ProjectData//Weights/Neiron//cp.ckpt")
 
     def btn_neiron_additional_train_clicked(self):
         pass
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     app = QtWidgets.QApplication([])
     application = mywindow()
     application.show()
