@@ -33,10 +33,14 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.btn_fit.clicked.connect(self.btn_fit_clicked)
         self.ui.btn_open_path_to_data.clicked.connect(self.btn_open_path_to_data_clicked)
         self.ui.btn_fit.setDisabled(True)
+
+        self.ui.preprocess_type.setCurrentIndex(1)
         for m in classifier.classifiers:
             self.ui.classifier_type.addItem(str(m))
         # ===2============================
         self.ui.tabWidget.currentChanged.connect(self.tab_changed)
+        self.ui.btn_select_path_to_test_data.clicked.connect(self.btn_select_path_to_test_data_clicked)
+        self.ui.btn_open_path_to_test_data.clicked.connect(self.btn_open_path_to_test_data_clicked)
         self.ui.selector_model.currentIndexChanged.connect(self.set_preprocess_type_test)
         self.ui.btn_load_test_data.clicked.connect(self.btn_load_test_data_clicked)
         self.ui.btn_test.clicked.connect(self.btn_test_clicked)
@@ -60,6 +64,9 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.btn_neiron_additional_train.clicked.connect(self.btn_neiron_additional_train_clicked)
         # ===5=======================================================
 
+
+
+
     # ====Управление первой вкладкой====================================================
     def btn_open_path_to_data_clicked(self):
         path = self.ui.path_to_data.text()
@@ -72,6 +79,7 @@ class mywindow(QtWidgets.QMainWindow):
                                                              self.ui.preprocess_type.currentText())
         self.ui.label_4.setText(metrics.classification_report(expected, predicted, zero_division=0))
         self.load_train_predictions_matrix_table(metrics.confusion_matrix(expected, predicted))
+
 
     def btn_select_input_data_clicked(self):
         file_path = QFileDialog.getOpenFileName(self, "Выберите файл", filter="*.csv")
@@ -155,7 +163,7 @@ class mywindow(QtWidgets.QMainWindow):
 
     def set_preprocess_type_test(self):
         type = self.ui.selector_model.currentText().split("_")
-        type = type[1]
+        type = type[len(type)-1]
         type = type.split(".")
         type = type[0]
 
@@ -210,7 +218,12 @@ class mywindow(QtWidgets.QMainWindow):
     def btn_test_clicked(self):
 
         expected, predicted = classifier.test_model(self.X, self.y, self.ui.selector_model.currentText())
-        classifier.generate_test_report(self.ui.path_to_test_data.text())
+        print("!")
+        if self.ui.preprocess_type_test.currentText() == "Стандартизация":
+            preprocess_type = 2
+        else:
+            preprocess_type = 1
+        classifier.generate_test_report(self.ui.path_to_test_data.text(),self.ui.selector_model.currentText(), preprocess_type)
         self.ui.label_20.setText(metrics.classification_report(expected, predicted, zero_division=0))
         # print(metrics.confusion_matrix(expected, predicted))
         self.load_test_predictions_matrix(metrics.confusion_matrix(expected, predicted))
@@ -239,6 +252,15 @@ class mywindow(QtWidgets.QMainWindow):
                 self.ui.test_predictions_matrix.setItem(row, col, cellinfo)
                 col += 1
             row += 1
+    def btn_select_path_to_test_data_clicked(self):
+        file_path = QFileDialog.getOpenFileName(self, "Выберите файл", filter="*.csv")
+        self.ui.path_to_test_data.setText(file_path[0])
+
+    def btn_open_path_to_test_data_clicked(self):
+        path = self.ui.path_to_test_data.text()
+        path = '\\'.join(path.split('\\')[:-1])
+        path = os.path.realpath(path)
+        os.startfile(path)
 
     # ====Управление третьей вкладкой===================================================
     def btn_open_input_data_path_clicked(self):

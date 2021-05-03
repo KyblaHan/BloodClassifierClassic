@@ -397,9 +397,9 @@ def load_and_preprocess_data(path_to_data, preprocess_method=1):
     X = data.iloc[:, 1:]
     y = data["Label"]
     if preprocess_method == 1:
-     X = preprocessing.normalize(X)
+        X = preprocessing.normalize(X)
     elif preprocess_method == 2:
-        X = preprocessing.StandardScaler().fit(X)
+        X = preprocessing.StandardScaler().fit_transform(X)
     else:
         X = preprocessing.normalize(X)
 
@@ -455,7 +455,7 @@ def test_model(X, y, path):
     """
     # model = classifiers[4]
     # path = path+".pkl"
-    print(path)
+
     with open(path, 'rb') as file:
         model = pickle.load(file)
 
@@ -544,21 +544,26 @@ def get_all_stats(path_train, path_test):
         print(acc)
 
 
-def generate_test_report(path_to_data):
+def generate_test_report(path_to_data,path_to_save,preprocessing_type):
     """
     Генератор отчета по тестированию в разрезе каждого объекта, сохраняет csv-файл: ProjectData/OutputData/test_report.csv
     :param path_to_data: путь к тестовой выборке csv-файлу
     :return:
     """
+    print("!!" + path_to_data)
     output_data = []
 
     data = pd.read_csv(path_to_data, sep=';', thousands=",", low_memory=False)
     paths = data["path_to_cell"]
-    del data["path_to_cell"]
-    X = data.iloc[:, 1:]
-    y = data["Label"]
-    X = preprocessing.normalize(X)
-    with open("ProjectData/Weights/Classic/test.pkl", 'rb') as file:
+    # del data["path_to_cell"]
+    # X = data.iloc[:, 1:]
+    # y = data["Label"]
+
+    # X = preprocessing.normalize(X)
+
+    X,y = load_and_preprocess_data(path_to_data,preprocessing_type)
+
+    with open(path_to_save, 'rb') as file:
         model = pickle.load(file)
     expected = y
     predicted = model.predict(X)
