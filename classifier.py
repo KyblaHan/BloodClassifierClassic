@@ -519,6 +519,16 @@ def get_all_stats(path_train, path_test):
         print("Показатели на обучающих данных: ")
         expected = y
         predicted = model.predict(X)
+
+
+        output_data = []
+        for i in range(0, len(y)):
+            output_data.append(( expected[i], predicted[i]))
+
+        output_df = pd.DataFrame(output_data, columns=["expected", "predicted"])
+        output_df.to_csv("ProjectData/OutputData/report_train_"+str(m)+".csv")
+
+
         # print(metrics.classification_report(expected, predicted, zero_division=0))
         # print(metrics.confusion_matrix(expected, predicted))
         acc_train = metrics.accuracy_score(expected, predicted)
@@ -532,6 +542,13 @@ def get_all_stats(path_train, path_test):
         expected = y
         a = timeit.default_timer()
         predicted = model.predict(X)
+
+        output_data = []
+        for i in range(0, len(y)):
+            output_data.append((expected[i], predicted[i]))
+
+        output_df = pd.DataFrame(output_data, columns=["expected", "predicted"])
+        output_df.to_csv("ProjectData/OutputData/report_test_" + str(m) + ".csv")
         test_time = timeit.default_timer() - a
 
         # print(metrics.classification_report(expected, predicted, zero_division=0))
@@ -551,10 +568,10 @@ def generate_test_report(path_to_data,path_to_save,preprocessing_type):
     :return:
     """
     print("!!" + path_to_data)
-    output_data = []
+
 
     data = pd.read_csv(path_to_data, sep=';', thousands=",", low_memory=False)
-    paths = data["path_to_cell"]
+
     # del data["path_to_cell"]
     # X = data.iloc[:, 1:]
     # y = data["Label"]
@@ -568,6 +585,8 @@ def generate_test_report(path_to_data,path_to_save,preprocessing_type):
     expected = y
     predicted = model.predict(X)
 
+    paths = data["path_to_cell"]
+    output_data = []
     for i in range(0, len(paths)):
         output_data.append((paths[i], expected[i], predicted[i]))
 
@@ -577,4 +596,4 @@ def generate_test_report(path_to_data,path_to_save,preprocessing_type):
 
 # generate_test_report("ProjectData/Data/test_multiclass.csv")
 # load_params()
-# get_all_stats("ProjectData/Data/train_multiclass.csv", "ProjectData/Data/test_multiclass.csv")
+# get_all_stats("ProjectData/Data/train.csv", "ProjectData/Data/test.csv")

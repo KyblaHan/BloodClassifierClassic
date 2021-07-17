@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 import datetime
+import timeit
+
 import tensorflow as tf
 import os
 import pathlib
@@ -267,14 +269,22 @@ def train_and_test(path_to_train, path_to_test, use_gpu, epochs, test_every_epoc
     activate_gpu(use_gpu)
     cells_report = []
     short_report = []
-    for i in range(1, epochs, 1):
-        start_train(path_to_train, True, i)
-
+    time_report = []
+    for i in range(3, epochs, 1):
+        train_time = timeit.default_timer()
+        start_train(path_to_train, use_gpu, i)
+        train_time = timeit.default_timer() - train_time
         if test_every_epoch == "full" or test_every_epoch == "cells":
-            train_data = test_model_one_class(path_to_train, True,
+
+            train_data = test_model_one_class(path_to_train, use_gpu,
                                               "ProjectData//Weights/Neiron//cp.ckpt")
-            test_data = test_model_one_class(path_to_test, True,
+
+
+
+            test_data = test_model_one_class(path_to_test, use_gpu,
                                              "ProjectData//Weights/Neiron//cp.ckpt")
+
+
             cells_report.append(get_values(i, "train", train_data))
             cells_report.append(get_values(i, "test", test_data))
             df = pd.DataFrame(cells_report,
@@ -285,15 +295,26 @@ def train_and_test(path_to_train, path_to_test, use_gpu, epochs, test_every_epoc
             df.to_csv(r"ProjectData/OutputData/Neiron/tensor_cells_report_" + str(i) + ".csv")
 
         if test_every_epoch == "full" or test_every_epoch == "short":
-            train_data = test_model(path_to_train, True,
+            test_train_time = timeit.default_timer()
+            train_data = test_model(path_to_train, use_gpu,
                                     "ProjectData//Weights/Neiron//cp.ckpt")
-            test_data = test_model(path_to_test, True,
+            test_train_time = timeit.default_timer() - test_train_time
+            test_test_time = timeit.default_timer()
+            test_data = test_model(path_to_test, use_gpu,
                                    "ProjectData//Weights/Neiron//cp.ckpt")
+            test_test_time = timeit.default_timer() - test_test_time
+
+            time_report.append((i,train_time,test_train_time,test_test_time))
+            df = pd.DataFrame(time_report, columns=["epoch", "train_time", 'test_train_time','test_test_time'])
+            df.to_csv(r"ProjectData/OutputData/Neiron/tensor_time_report_" + str(i) + ".csv")
+
             short_report.append((i, "train", train_data))
             short_report.append((i, "test", test_data))
             df = pd.DataFrame(short_report,
                               columns=["epoch", "type", 'acc'])
             df.to_csv(r"ProjectData/OutputData/Neiron/tensor_short_report_" + str(i) + ".csv")
+
+
 
     if test_every_epoch == "full" or test_every_epoch == "cells":
         df = pd.DataFrame(cells_report,
@@ -326,7 +347,7 @@ def get_values(epoch, data_type, data_list):
 
 def train_and_test_no_control():
     data_list = []
-    for i in range(56, 100, 1):
+    for i in range(1, 100, 1):
         start_train(r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\train", True, i)
         train_data = test_model_one_class(r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\train", True,
                                           "ProjectData//Weights/Neiron//cp.ckpt")
@@ -349,5 +370,7 @@ def train_and_test_no_control():
     df.to_csv(r"ProjectData/OutputData/tensor_report.csv")
 
 
-# train_and_test(r"C:\_Programming\_DataSets\Multiclass\augData\train",
-#                r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\test", True, 10,"full")
+# train_and_test(r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\train",
+#                 r"C:\_Programming\_DataSets\Multiclass\png_devided_data_append\test", False, 21,"short")
+
+# train_and_test_no_control()
